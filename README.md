@@ -8,3 +8,7 @@ Esse aplicativo tem como finalidade concluir os estudos do curso UD845
 Nele é possivel o gerenciamento através de um smartphone Android de um estoque de itens armazenados em um banco de dados SQLite onde há opções de adição, modificação, leitura e deleção dos dados.
 <br><br>
 Os dados armazenados de forma estruturada no SQLite são obtidos através de um formulário de adição contido no aplicativo.
+
+Observações
+---
+Versão do android: 4.4 +  (KitKat)
