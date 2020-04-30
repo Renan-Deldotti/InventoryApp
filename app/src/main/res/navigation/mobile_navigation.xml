@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="br.com.renandeldotti.inventoryapp.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_stock"
+        android:name="br.com.renandeldotti.inventoryapp.ui.stock.StockFragment"
+        android:label="@string/products"
+        tools:layout="@layout/fragment_stock" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="br.com.renandeldotti.inventoryapp.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:id="@+id/navigation_sales"
+        android:name="br.com.renandeldotti.inventoryapp.ui.sales.SalesFragment"
+        android:label="@string/sales"
         tools:layout="@layout/fragment_notifications" />
 </navigation>
