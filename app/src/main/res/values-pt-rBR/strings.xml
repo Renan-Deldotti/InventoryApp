@@ -4,4 +4,6 @@
     <string name="title_home">Início</string>
     <string name="products">Estoque</string>
     <string name="sales">Vendas</string>
+    <string name="home_summary_text">Verifique aqui um resumo das suas vendas do mes</string>
+    <string name="home_summary_title">Olá</string>
 </resources>

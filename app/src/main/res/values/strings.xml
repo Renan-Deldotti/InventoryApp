@@ -5,4 +5,6 @@
     <string name="title_notifications" translatable="false">Notifications</string>
     <string name="products">Products</string>
     <string name="sales">Sales</string>
+    <string name="home_summary_text">here you can check a summary of your month sales</string>
+    <string name="home_summary_title">Hi</string>
 </resources>
