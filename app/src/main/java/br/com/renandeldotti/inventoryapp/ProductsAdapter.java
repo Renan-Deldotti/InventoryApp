@@ -50,9 +50,10 @@ public class ProductsAdapter extends ListAdapter<Products, ProductsAdapter.Produ
     public void onBindViewHolder(@NonNull ProductsHolder holder, int position) {
         Products products = getItem(position);
         holder.titleTv.setText(products.getProduct_name());
-        holder.quantityTv.setText(products.getProduct_quantity());
-        String priceString = "R$ "+ products.getPrice();
-        holder.priceTv.setText(priceString);
+        holder.quantityTv.setText(String.valueOf(products.getProduct_quantity()));
+        String formattedStr = "R$: " + String.format(Locale.getDefault(),"%.2f",products.getPrice());
+        holder.priceTv.setText(formattedStr);
+
     }
 
     Products getProductAtPosition(int position){return getItem(position);}
