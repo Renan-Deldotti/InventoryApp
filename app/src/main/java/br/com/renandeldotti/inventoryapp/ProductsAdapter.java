@@ -19,7 +19,7 @@ import br.com.renandeldotti.inventoryapp.database.Products;
 
 public class ProductsAdapter extends ListAdapter<Products, ProductsAdapter.ProductsHolder> {
 
-    protected ProductsAdapter() {
+    public ProductsAdapter() {
         super(DIFF_ITEM_CALLBACK);
     }
 
