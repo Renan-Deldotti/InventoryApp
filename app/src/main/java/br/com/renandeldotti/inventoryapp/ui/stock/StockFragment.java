@@ -22,13 +22,6 @@ public class StockFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         stockViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(StockViewModel.class);
         View root = inflater.inflate(R.layout.fragment_stock, container, false);
-        /*final TextView textView = root.findViewById(R.id.text_dashboard);
-        stockViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
         return root;
     }
 }
