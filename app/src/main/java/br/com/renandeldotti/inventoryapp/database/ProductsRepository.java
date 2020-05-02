@@ -11,6 +11,7 @@ public class ProductsRepository {
 
     private ProductsDao productsDao;
     private LiveData<List<Products>> products;
+    private LiveData<List<Sold>> soldProducts;
     private static final int ACTION_INSERT = 1;
     private static final int ACTION_UPDATE = 2;
     private static final int ACTION_DELETE = 3;
@@ -20,6 +21,7 @@ public class ProductsRepository {
         InventoryDatabase database = InventoryDatabase.getInstance(application);
         productsDao = database.productsDao();
         products = productsDao.getAllProducts();
+        soldProducts = productsDao.getAllSales();
     }
 
     public void insert(final Products products){
@@ -34,6 +36,7 @@ public class ProductsRepository {
     public void delete(Products products){new productsDbAsyncTask(productsDao,ACTION_DELETE).execute(products);}
     public void deleteAllData(){new productsDbAsyncTask(productsDao,ACTION_DELETE_ALL).execute();}
     public LiveData<List<Products>> getAllProducts(){return products;}
+    public LiveData<List<Sold>> getAllSales(){return soldProducts;}
 
 
     private static class productsDbAsyncTask extends AsyncTask<Products,Void,Void>{

@@ -9,4 +9,6 @@
     <string name="home_summary_title">Hi</string>
     <string name="in_stock">In stock:</string>
     <string name="price">Price</string>
+    <string name="sold_for">"Sold for: "</string>
+    <string name="total">Total</string>
 </resources>

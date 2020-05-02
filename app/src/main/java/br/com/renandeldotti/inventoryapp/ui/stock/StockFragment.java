@@ -37,7 +37,6 @@ public class StockFragment extends Fragment {
         final ProductsAdapter adapter = new ProductsAdapter();
         recyclerView.setAdapter(adapter);
         try {
-            // Null object
             stockViewModel.getProducts().observe(getViewLifecycleOwner(), new Observer<List<Products>>() {
                 @Override
                 public void onChanged(List<Products> products) {

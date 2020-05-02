@@ -8,4 +8,6 @@
     <string name="home_summary_title">Olá</string>
     <string name="in_stock">Em estoque:</string>
     <string name="price">Preço:</string>
+    <string name="sold_for">"Vendido por: "</string>
+    <string name="total">Total</string>
 </resources>
