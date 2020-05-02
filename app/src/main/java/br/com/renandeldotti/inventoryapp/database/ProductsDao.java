@@ -23,4 +23,10 @@ interface ProductsDao {
 
     @Query("SELECT * FROM table_products ORDER BY id")
     LiveData<List<Products>> getAllProducts();
+
+    @Query("SELECT * FROM table_products ORDER BY quantity_sold")
+    LiveData<List<Products>> getMostSold();
+
+    @Query("SELECT * FROM table_products ORDER BY quantity_sold DESC")
+    LiveData<List<Products>> getLessSold();
 }
