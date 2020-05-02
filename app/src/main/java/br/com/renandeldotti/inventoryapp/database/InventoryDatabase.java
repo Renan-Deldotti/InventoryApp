@@ -10,7 +10,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Products.class}, version = 1)
+@Database(entities = {Products.class}, version = 1, exportSchema = false)
 abstract class InventoryDatabase extends RoomDatabase {
 
     private static InventoryDatabase instance;

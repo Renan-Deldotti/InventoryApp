@@ -6,4 +6,6 @@
     <string name="sales">Vendas</string>
     <string name="home_summary_text">Verifique aqui um resumo das suas vendas do mes</string>
     <string name="home_summary_title">Olá</string>
+    <string name="in_stock">Em estoque:</string>
+    <string name="price">Preço:</string>
 </resources>

@@ -19,12 +19,14 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Testing title"
+            android:paddingEnd="8dp"
+            android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintEnd_toStartOf="@+id/hold_text_002"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Title test" />
 
         <TextView
             android:id="@+id/hold_text_001"
