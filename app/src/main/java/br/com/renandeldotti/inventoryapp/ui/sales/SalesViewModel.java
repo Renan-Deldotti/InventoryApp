@@ -1,19 +1,30 @@
 package br.com.renandeldotti.inventoryapp.ui.sales;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SalesViewModel extends ViewModel {
+import java.util.List;
 
-    private MutableLiveData<String> mText;
+import br.com.renandeldotti.inventoryapp.database.ProductsRepository;
+import br.com.renandeldotti.inventoryapp.database.Sold;
 
-    public SalesViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+public class SalesViewModel extends AndroidViewModel {
+
+    private ProductsRepository productsRepository;
+    private LiveData<List<Sold>> allSales;
+
+    public SalesViewModel(@NonNull Application application) {
+        super(application);
+        productsRepository = new ProductsRepository(application);
+        allSales = productsRepository.getAllSales();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<List<Sold>> getAllSales() {
+        return allSales;
     }
 }

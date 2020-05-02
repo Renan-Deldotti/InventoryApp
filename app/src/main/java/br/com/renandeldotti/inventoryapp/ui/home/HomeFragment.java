@@ -17,13 +17,6 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        /*final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
         root.findViewById(R.id.ritmo_vendas).setOnClickListener(clickListener);
         root.findViewById(R.id.aumento_vendas).setOnClickListener(clickListener);
         root.findViewById(R.id.queda_vendas).setOnClickListener(clickListener);
