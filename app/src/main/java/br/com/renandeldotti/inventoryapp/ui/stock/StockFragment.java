@@ -47,7 +47,7 @@ public class StockFragment extends Fragment {
             ProgressBar progressBar = root.findViewById(R.id.stock_progressbar);
             progressBar.setVisibility(View.GONE);
         } catch (Exception e) {
-            Log.e(StockFragment.class.getSimpleName(),"Error");
+            Log.e(StockFragment.class.getSimpleName(),"Error: "+e);
         }
         return root;
     }

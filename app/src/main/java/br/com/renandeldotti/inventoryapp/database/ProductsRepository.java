@@ -22,14 +22,7 @@ public class ProductsRepository {
         products = productsDao.getAllProducts();
     }
 
-    public void insert(final Products products){
-        InventoryDatabase.databaseWriterExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                productsDao.insert(products);
-            }
-        });
-    }
+    public void insert(Products products){new productsDbAsyncTask(productsDao,ACTION_INSERT).execute(products);}
     public void update(Products products){new productsDbAsyncTask(productsDao,ACTION_UPDATE).execute(products);}
     public void delete(Products products){new productsDbAsyncTask(productsDao,ACTION_DELETE).execute(products);}
     public void deleteAllData(){new productsDbAsyncTask(productsDao,ACTION_DELETE_ALL).execute();}
