@@ -7,6 +7,7 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 @Entity (tableName = "table_products")
+public
 class Products {
 
     @PrimaryKey(autoGenerate = true)

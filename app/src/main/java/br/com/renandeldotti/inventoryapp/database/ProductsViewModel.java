@@ -1,25 +1,21 @@
-package br.com.renandeldotti.inventoryapp.ui.stock;
+package br.com.renandeldotti.inventoryapp.database;
 
 import android.app.Application;
+import android.app.ListActivity;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-import br.com.renandeldotti.inventoryapp.database.Products;
-import br.com.renandeldotti.inventoryapp.database.ProductsRepository;
-
-public class StockViewModel extends ViewModel {
+class ProductsViewModel extends AndroidViewModel {
 
     private ProductsRepository productsRepository;
     private LiveData<List<Products>> products;
 
-    public StockViewModel(){}
-
-    public StockViewModel(@NonNull Application application) {
+    public ProductsViewModel(@NonNull Application application) {
+        super(application);
         productsRepository = new ProductsRepository(application);
         products = productsRepository.getAllProducts();
     }

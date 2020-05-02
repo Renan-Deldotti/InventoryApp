@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-class ProductsRepository {
+public class ProductsRepository {
 
     private ProductsDao productsDao;
     private LiveData<List<Products>> products;
@@ -16,13 +16,13 @@ class ProductsRepository {
     private static final int ACTION_DELETE = 3;
     private static final int ACTION_DELETE_ALL = 4;
 
-    ProductsRepository(Application application){
+    public ProductsRepository(Application application){
         InventoryDatabase database = InventoryDatabase.getInstance(application);
         productsDao = database.productsDao();
         products = productsDao.getAllProducts();
     }
 
-    void insert(final Products products){
+    public void insert(final Products products){
         InventoryDatabase.databaseWriterExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -30,10 +30,10 @@ class ProductsRepository {
             }
         });
     }
-    void update(Products products){new productsDbAsyncTask(productsDao,ACTION_UPDATE).execute(products);}
-    void delete(Products products){new productsDbAsyncTask(productsDao,ACTION_DELETE).execute(products);}
-    void deleteAllData(){new productsDbAsyncTask(productsDao,ACTION_DELETE_ALL).execute();}
-    LiveData<List<Products>> getAllProducts(){return products;}
+    public void update(Products products){new productsDbAsyncTask(productsDao,ACTION_UPDATE).execute(products);}
+    public void delete(Products products){new productsDbAsyncTask(productsDao,ACTION_DELETE).execute(products);}
+    public void deleteAllData(){new productsDbAsyncTask(productsDao,ACTION_DELETE_ALL).execute();}
+    public LiveData<List<Products>> getAllProducts(){return products;}
 
 
     private static class productsDbAsyncTask extends AsyncTask<Products,Void,Void>{
