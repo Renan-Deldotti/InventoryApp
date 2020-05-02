@@ -29,4 +29,7 @@ interface ProductsDao {
 
     @Query("SELECT * FROM table_products ORDER BY quantity_sold DESC")
     LiveData<List<Products>> getLessSold();
+
+    @Query("DELETE FROM table_products")
+    void deleteAllProducts();
 }

@@ -1,6 +1,7 @@
 package br.com.renandeldotti.inventoryapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -12,6 +13,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,5 +47,32 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        /* Atualiza a lista ao tempo determinado pelo usuario
+        Timer timer = new Timer();
+        // time in miliseconds (1000 = 1s)
+        long timeToReset;
+        try {
+            final double i = (1000*60*60)*1.5;
+            String s = String.valueOf(i);
+            s = s.substring(0,(s.length()-2));
+            timeToReset = Long.parseLong(s);
+        } catch (NumberFormatException e) {
+            Log.e(MainActivity.class.getSimpleName(),"Error: Number Format Exception!!!\tDefault value set to 1 hour.");
+            // default value 1h
+            timeToReset  = 3600000;
+        }
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.this, "Updating...", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }, 1,timeToReset);*/
     }
 }
