@@ -7,4 +7,6 @@
     <string name="sales">Sales</string>
     <string name="home_summary_text">here you can check a summary of your month sales</string>
     <string name="home_summary_title">Hi</string>
+    <string name="in_stock">In stock:</string>
+    <string name="price">Price</string>
 </resources>
