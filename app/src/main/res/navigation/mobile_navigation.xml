@@ -21,5 +21,5 @@
         android:id="@+id/navigation_sales"
         android:name="br.com.renandeldotti.inventoryapp.ui.sales.SalesFragment"
         android:label="@string/sales"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_sales" />
 </navigation>
