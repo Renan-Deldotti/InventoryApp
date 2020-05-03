@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,6 +25,14 @@ public class AddEditProduct extends AppCompatActivity {
     private static final int NAV_HOME = 1;
     private static final int NAV_CANCEL = 2;
 
+    public static final String EXTRA_ID = "br.com.renandeldotti.inventoryapp.EXTRA_ID";
+    public static final String EXTRA_NAME = "br.com.renandeldotti.inventoryapp.EXTRA_NAME";
+    public static final String EXTRA_QUANTITY = "br.com.renandeldotti.inventoryapp.EXTRA_QUANTITY";
+    public static final String EXTRA_PRICE = "br.com.renandeldotti.inventoryapp.EXTRA_PRICE";
+    public static final String EXTRA_DESCRIPTION = "br.com.renandeldotti.inventoryapp.EXTRA_DESCRIPTION";
+
+    private Intent intentCall;
+
     private TextInputEditText productName;
     private EditText productQuantity, productPrice, productDescription;
     private Button clearFields;
@@ -31,11 +41,24 @@ public class AddEditProduct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_product);
+
+        intentCall = getIntent();
+
         productName = findViewById(R.id.add_product_name);
         productQuantity = findViewById(R.id.add_product_quantity);
         productPrice = findViewById(R.id.add_product_price);
         productDescription = findViewById(R.id.add_product_description);
         clearFields = findViewById(R.id.btn_clearFields);
+
+        clearFields.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                productName.setText("");
+                productQuantity.setText("");
+                productPrice.setText("");
+                productDescription.setText("");
+            }
+        });
     }
 
     @Override
@@ -74,20 +97,31 @@ public class AddEditProduct extends AppCompatActivity {
             productName.setError(getResources().getString(R.string.invalid_name));
             return;
         }
+        int addQuantity = 0;
         try {
-            int addQuantity = Integer.parseInt(productQuantity.getText().toString().trim());
+             addQuantity = Integer.parseInt(productQuantity.getText().toString().trim());
         } catch (NumberFormatException e) {
             Toast.makeText(this,getResources().getString(R.string.invalid_quantity), Toast.LENGTH_SHORT).show();
             productQuantity.setError(getResources().getString(R.string.invalid_quantity));
             return;
         }
+        int addPrice = 0;
         try {
-            int addPrice = Integer.parseInt(productPrice.getText().toString().trim());
+            addPrice = Integer.parseInt(productPrice.getText().toString().trim());
         } catch (NumberFormatException e) {
             Toast.makeText(this,getResources().getString(R.string.invalid_price), Toast.LENGTH_SHORT).show();
-            productQuantity.setError(getResources().getString(R.string.invalid_price));
+            productPrice.setError(getResources().getString(R.string.invalid_price));
             return;
         }
         String addDescription = productDescription.getText().toString().trim();
+
+        Intent data = new Intent();
+        data.putExtra(EXTRA_NAME,addName);
+        data.putExtra(EXTRA_QUANTITY,addQuantity);
+        data.putExtra(EXTRA_PRICE,addPrice);
+        data.putExtra(EXTRA_DESCRIPTION,addDescription);
+
+        setResult(RESULT_OK,data);
+        finish();
     }
 }

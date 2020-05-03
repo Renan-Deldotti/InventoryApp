@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -19,6 +20,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
+
+    private String TAG = MainActivity.class.getSimpleName();
+    public static final int ADD_PRODUCT_REQUEST = 1;
+    public static final int EDIT_PRODUCT_REQUEST = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,AddEditProduct.class);
-                startActivity(intent);
+                startActivityForResult(intent,ADD_PRODUCT_REQUEST);
             }
         });
         fab.setOnLongClickListener(new View.OnLongClickListener() {
@@ -76,5 +81,17 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         }, 1,timeToReset);*/
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ADD_PRODUCT_REQUEST){
+            if (resultCode == RESULT_OK){
+                Toast.makeText(this, getResources().getString(R.string.product_saved), Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this, getResources().getString(R.string.product_not_saved), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

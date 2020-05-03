@@ -25,4 +25,6 @@
     <string name="invalid_quantity">Invalid quantity</string>
     <string name="invalid_price">Invalid price</string>
     <string name="invalid_name">Invalid name</string>
+    <string name="product_not_saved">Product not saved</string>
+    <string name="product_saved">Product saved</string>
 </resources>
