@@ -1,8 +1,11 @@
 package br.com.renandeldotti.inventoryapp.ui.stock;
 
 import android.os.Bundle;
+import android.os.HandlerThread;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -19,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import br.com.renandeldotti.inventoryapp.ProductsAdapter;
 import br.com.renandeldotti.inventoryapp.R;
@@ -30,6 +35,8 @@ public class StockFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_stock, container, false);
+        setHasOptionsMenu(true);
+        setMenuVisibility(false);
         stockViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(StockViewModel.class);
         RecyclerView recyclerView = root.findViewById(R.id.stock_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -48,6 +55,30 @@ public class StockFragment extends Fragment {
         } catch (Exception e) {
             Log.e(StockFragment.class.getSimpleName(),"Error: "+e);
         }
+        /*Thread thread = new Thread(){
+            @Override
+            public void run() {
+                try {
+                    sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                setMenuVisibility(true);
+            }
+        };
+        thread.start();*/
         return root;
+
+    }
+
+    @Override
+    public void setMenuVisibility(boolean menuVisible) {
+        super.setMenuVisibility(menuVisible);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.long_press_option_menu,menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }
