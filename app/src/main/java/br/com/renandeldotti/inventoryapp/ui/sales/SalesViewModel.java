@@ -10,21 +10,28 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
+import br.com.renandeldotti.inventoryapp.database.Products;
 import br.com.renandeldotti.inventoryapp.database.ProductsRepository;
 import br.com.renandeldotti.inventoryapp.database.Sold;
+import br.com.renandeldotti.inventoryapp.database.SoldRepository;
 
 public class SalesViewModel extends AndroidViewModel {
 
     private ProductsRepository productsRepository;
+    private SoldRepository soldRepository;
     private LiveData<List<Sold>> allSales;
+    private LiveData<List<Products>> allProducts;
 
     public SalesViewModel(@NonNull Application application) {
         super(application);
         productsRepository = new ProductsRepository(application);
-        allSales = productsRepository.getAllSales();
+        soldRepository = new SoldRepository(application);
+        allSales = soldRepository.getAllSales();
+        allProducts = productsRepository.getAllProducts();
     }
 
     public LiveData<List<Sold>> getAllSales() {
         return allSales;
     }
+    public LiveData<List<Products>> getAllProducts(){return allProducts;}
 }

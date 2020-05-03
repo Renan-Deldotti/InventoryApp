@@ -32,7 +32,4 @@ interface ProductsDao {
 
     @Query("DELETE FROM table_products")
     void deleteAllProducts();
-
-    @Query("SELECT * FROM table_products_sold ORDER BY id DESC")
-    LiveData<List<Sold>> getAllSales();
 }

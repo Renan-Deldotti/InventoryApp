@@ -23,6 +23,7 @@ abstract class InventoryDatabase extends RoomDatabase {
     static final ExecutorService databaseWriterExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     abstract ProductsDao productsDao();
+    abstract SoldDao soldDao();
 
     static synchronized InventoryDatabase getInstance(Context context){
         if (instance == null){
@@ -44,9 +45,11 @@ abstract class InventoryDatabase extends RoomDatabase {
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void,Void,Void> {
         private ProductsDao noteDao;
+        private SoldDao soldDao;
 
         private PopulateDbAsyncTask(@NotNull InventoryDatabase db){
             noteDao = db.productsDao();
+            soldDao = db.soldDao();
         }
 
         @Override
@@ -56,6 +59,7 @@ abstract class InventoryDatabase extends RoomDatabase {
             noteDao.insert(new Products("Produto 3","Descrição 1",1,15));
             noteDao.insert(new Products("Produto 4","Descrição 1",1,15));
             noteDao.insert(new Products("Produto 5","Descrição 1",1,15));
+            soldDao.insert(new Sold("Produto um",(float) 1.5,15));
             return null;
         }
     }

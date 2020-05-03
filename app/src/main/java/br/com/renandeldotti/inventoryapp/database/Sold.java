@@ -9,7 +9,7 @@ public class Sold {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    private int product_id;
+    private String product_name;
 
     private float sold_price;
 
@@ -17,11 +17,12 @@ public class Sold {
 
     // Constructor
 
-    public Sold(int product_id, float sold_price, int quantity_sold) {
-        this.product_id = product_id;
+    public Sold(String product_name, float sold_price, int quantity_sold) {
+        this.product_name = product_name;
         this.sold_price = sold_price;
         this.quantity_sold = quantity_sold;
     }
+
 
     // Getters and  Setters
 
@@ -33,8 +34,8 @@ public class Sold {
         return id;
     }
 
-    public int getProduct_id() {
-        return product_id;
+    public String getProduct_name() {
+        return product_name;
     }
 
     public float getSold_price() {
