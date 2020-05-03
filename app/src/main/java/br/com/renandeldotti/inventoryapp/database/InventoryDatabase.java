@@ -11,6 +11,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -59,7 +63,8 @@ abstract class InventoryDatabase extends RoomDatabase {
             noteDao.insert(new Products("Produto 3","Descrição 1",1,15));
             noteDao.insert(new Products("Produto 4","Descrição 1",1,15));
             noteDao.insert(new Products("Produto 5","Descrição 1",1,15));
-            soldDao.insert(new Sold("Produto um",(float) 1.5,15));
+            String time = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(Calendar.getInstance().getTime());
+            soldDao.insert(new Sold("Produto um",(float) 1.5,15,time));
             return null;
         }
     }

@@ -15,14 +15,16 @@ public class Sold {
 
     private int quantity_sold;
 
+    private String date_added;
+
     // Constructor
 
-    public Sold(String product_name, float sold_price, int quantity_sold) {
+    public Sold(String product_name, float sold_price, int quantity_sold, String date_added) {
         this.product_name = product_name;
         this.sold_price = sold_price;
         this.quantity_sold = quantity_sold;
+        this.date_added = date_added;
     }
-
 
     // Getters and  Setters
 
@@ -45,4 +47,6 @@ public class Sold {
     public int getQuantity_sold() {
         return quantity_sold;
     }
+
+    public String getDate_added() {return date_added;}
 }
