@@ -12,4 +12,9 @@
     <string name="total">Total</string>
     <string name="clear">Limpar</string>
     <string name="quantity_sold">"Vendidos: "</string>
+    <string name="product_name">Nome do produto</string>
+    <string name="give_a_description">Descrição</string>
+    <string name="quantity">Quantidade</string>
+    <string name="cancel">Cancelar</string>
+    <string name="save">Salvar</string>
 </resources>

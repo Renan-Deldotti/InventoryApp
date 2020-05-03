@@ -1,5 +1,6 @@
 package br.com.renandeldotti.inventoryapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "...", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this,AddEditProduct.class);
+                startActivity(intent);
             }
         });
         fab.setOnLongClickListener(new View.OnLongClickListener() {
