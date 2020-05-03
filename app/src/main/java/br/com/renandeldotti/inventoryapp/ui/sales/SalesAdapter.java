@@ -1,5 +1,6 @@
 package br.com.renandeldotti.inventoryapp.ui.sales;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Locale;
 
 import br.com.renandeldotti.inventoryapp.R;
 import br.com.renandeldotti.inventoryapp.database.Products;
@@ -21,7 +23,13 @@ import br.com.renandeldotti.inventoryapp.database.Sold;
 public class SalesAdapter extends RecyclerView.Adapter<SalesAdapter.SalesHolder> {
 
     private List<Sold> allSales;
+    private Context context;
     //private List<Products> allProducts;
+
+
+    public SalesAdapter(Context context) {
+        this.context = context;
+    }
 
     @NonNull
     @Override
@@ -35,9 +43,17 @@ public class SalesAdapter extends RecyclerView.Adapter<SalesAdapter.SalesHolder>
     public void onBindViewHolder(@NonNull SalesHolder holder, int position) {
         if (allSales != null){
             Sold sold = allSales.get(position);
+
+            String soldQuantityString = context.getResources().getString(R.string.quantity_sold) + sold.getQuantity_sold();
+            String soldPriceString = context.getResources().getString(R.string.sold_for)+" R$ "+String.format(Locale.getDefault(),"%.2f",sold.getSold_price())+ " cada.";
+            String soldTotalPrice = "R$ "+String.format(Locale.getDefault(),"%.2f",(sold.getQuantity_sold() * sold.getSold_price()));
+            String soldDate = "01/01/2020 12:34:56";
+
             holder.soldProductTv.setText(String.valueOf(sold.getProduct_name()));
-            holder.soldQuantity.setText(String.valueOf(sold.getQuantity_sold()));
-            holder.soldPrice.setText(String.valueOf(sold.getSold_price()));
+            holder.soldQuantity.setText(soldQuantityString);
+            holder.soldPrice.setText(soldPriceString);
+            holder.soldDate.setText(soldDate);
+            holder.soldTotalPrice.setText(soldTotalPrice);
         }else{
             Log.e(SalesAdapter.class.getSimpleName(),"Null list");
         }

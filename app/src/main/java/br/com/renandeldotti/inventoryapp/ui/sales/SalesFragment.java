@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,10 +30,11 @@ public class SalesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         View root = inflater.inflate(R.layout.fragment_sales, container, false);
+        salesViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(SalesViewModel.class);
         RecyclerView salesRecyclerView = root.findViewById(R.id.sales_recyclerView);
         salesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         salesRecyclerView.setHasFixedSize(true);
-        final SalesAdapter adapter = new SalesAdapter();
+        final SalesAdapter adapter = new SalesAdapter(getContext());
         salesRecyclerView.setAdapter(adapter);
         try {
             if (salesViewModel.getAllSales() != null) {
