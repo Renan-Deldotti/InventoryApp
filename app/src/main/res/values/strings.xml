@@ -30,4 +30,6 @@
     <string name="Delete">Delete</string>
     <string name="delete_confirm">Confirm delete?</string>
     <string name="deleted">Deleted</string>
+    <string name="error_delete">Error deleting this product, try again.</string>
+    <string name="edit">Edit</string>
 </resources>

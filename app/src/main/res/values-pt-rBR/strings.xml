@@ -29,4 +29,6 @@
     <string name="Delete">Excluir</string>
     <string name="delete_confirm">Confirmar deleção?</string>
     <string name="deleted">Deleted</string>
+    <string name="error_delete">Erro ao deletar esse produto, tente novamente.</string>
+    <string name="edit">Editar</string>
 </resources>

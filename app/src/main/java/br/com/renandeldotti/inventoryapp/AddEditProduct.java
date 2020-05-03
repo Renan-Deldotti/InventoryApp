@@ -99,8 +99,6 @@ public class AddEditProduct extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteThisProduct();
-                        Toast.makeText(AddEditProduct.this, getResources().getString(R.string.deleted), Toast.LENGTH_SHORT).show();
-                        NavUtils.navigateUpFromSameTask(AddEditProduct.this);
                     }
                 });
                 builder.setNegativeButton(getResources().getString(R.string.no),null);
@@ -113,10 +111,12 @@ public class AddEditProduct extends AppCompatActivity {
 
     private void deleteThisProduct() {
         if (thisProductId == -1){
+            Toast.makeText(this, getResources().getString(R.string.error_delete), Toast.LENGTH_SHORT).show();
             return;
         }
         productsViewModel.deleteSingleItem(thisProductId);
         Toast.makeText(this, getResources().getString(R.string.deleted), Toast.LENGTH_SHORT).show();
+        NavUtils.navigateUpFromSameTask(AddEditProduct.this);
     }
 
     private void prepareToSave() {

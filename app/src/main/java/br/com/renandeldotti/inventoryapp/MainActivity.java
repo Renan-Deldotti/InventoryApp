@@ -3,6 +3,7 @@ package br.com.renandeldotti.inventoryapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -44,16 +45,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,AddEditProduct.class);
-                startActivityForResult(intent,ADD_PRODUCT_REQUEST);
+                startActivity(intent);
             }
         });
-        fab.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Toast.makeText(MainActivity.this, "Adicionar novo produto", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
+
+        // Todo: Continuar a edição do botão de exlucsão
 
         /* Atualiza a lista ao tempo determinado pelo usuario
         Timer timer = new Timer();
@@ -83,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         }, 1,timeToReset);*/
     }
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ADD_PRODUCT_REQUEST){
@@ -93,5 +89,5 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, getResources().getString(R.string.product_not_saved), Toast.LENGTH_SHORT).show();
             }
         }
-    }
+    }*/
 }
