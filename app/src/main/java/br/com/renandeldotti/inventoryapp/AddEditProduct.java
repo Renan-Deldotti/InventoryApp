@@ -37,6 +37,7 @@ public class AddEditProduct extends AppCompatActivity {
 
     private Intent intentCall;
     private ProductsViewModel productsViewModel;
+    private int thisProductId = -1;
 
     private TextInputEditText productName;
     private EditText productQuantity, productPrice, productDescription;
@@ -46,6 +47,8 @@ public class AddEditProduct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_product);
+
+        productsViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(ProductsViewModel.class);
 
         intentCall = getIntent();
 
@@ -74,9 +77,9 @@ public class AddEditProduct extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddEditProduct.this);
         switch (item.getItemId()) {
             case R.id.add_edit_cancel:
-                AlertDialog.Builder builder = new AlertDialog.Builder(AddEditProduct.this);
                 builder.setMessage(R.string.exit_message);
                 builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
@@ -90,9 +93,30 @@ public class AddEditProduct extends AppCompatActivity {
             case R.id.add_edit_save:
                 prepareToSave();
                 return true;
+            case R.id.add_edit_delete:
+                builder.setMessage(getResources().getString(R.string.delete_confirm));
+                builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteThisProduct();
+                        Toast.makeText(AddEditProduct.this, getResources().getString(R.string.deleted), Toast.LENGTH_SHORT).show();
+                        NavUtils.navigateUpFromSameTask(AddEditProduct.this);
+                    }
+                });
+                builder.setNegativeButton(getResources().getString(R.string.no),null);
+                builder.show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void deleteThisProduct() {
+        if (thisProductId == -1){
+            return;
+        }
+        productsViewModel.deleteSingleItem(thisProductId);
+        Toast.makeText(this, getResources().getString(R.string.deleted), Toast.LENGTH_SHORT).show();
     }
 
     private void prepareToSave() {
@@ -129,7 +153,7 @@ public class AddEditProduct extends AppCompatActivity {
         setResult(RESULT_OK,data);
         finish();*/
 
-        productsViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(ProductsViewModel.class);
+
         Products products = new Products(addName,addDescription,addQuantity,addPrice);
         productsViewModel.insert(products);
         setResult(RESULT_OK);

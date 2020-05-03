@@ -15,6 +15,7 @@ public class ProductsRepository {
     private static final int ACTION_UPDATE = 2;
     private static final int ACTION_DELETE = 3;
     private static final int ACTION_DELETE_ALL = 4;
+    private static final int ACTION_DELETE_SINGLE = 5;
 
     public ProductsRepository(Application application){
         InventoryDatabase database = InventoryDatabase.getInstance(application);
@@ -33,15 +34,22 @@ public class ProductsRepository {
     public void update(Products products){new productsDbAsyncTask(productsDao,ACTION_UPDATE).execute(products);}
     public void delete(Products products){new productsDbAsyncTask(productsDao,ACTION_DELETE).execute(products);}
     public void deleteAllData(){new productsDbAsyncTask(productsDao,ACTION_DELETE_ALL).execute();}
+    public void deleteSingleItem(int singleItemId){new productsDbAsyncTask(productsDao,ACTION_DELETE_SINGLE,singleItemId).execute();}
     public LiveData<List<Products>> getAllProducts(){return products;}
 
 
     private static class productsDbAsyncTask extends AsyncTask<Products,Void,Void>{
         private ProductsDao productsDao;
         private int action;
+        private int idToDelete;
         private productsDbAsyncTask(ProductsDao productsDao, int action){
             this.productsDao = productsDao;
             this.action = action;
+        }
+        private productsDbAsyncTask(ProductsDao productsDao, int action, int idToDelete){
+            this.productsDao = productsDao;
+            this.action = action;
+            this.idToDelete = idToDelete;
         }
         @Override
         protected Void doInBackground(Products... products) {
@@ -58,6 +66,8 @@ public class ProductsRepository {
                 case ACTION_DELETE_ALL:
                     productsDao.deleteAllProducts();
                     break;
+                case ACTION_DELETE_SINGLE:
+                    productsDao.deleteSingleItem(idToDelete);
                 default:
                     return null;
             }

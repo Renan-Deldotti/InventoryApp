@@ -21,8 +21,9 @@ public class ProductsViewModel extends AndroidViewModel {
     }
 
     public void insert(Products products){productsRepository.insert(products);}
-    void update(Products products){productsRepository.update(products);}
-    void delete(Products products){productsRepository.delete(products);}
+    public void update(Products products){productsRepository.update(products);}
+    public void delete(Products products){productsRepository.delete(products);}
     void deleteAll(){productsRepository.deleteAllData();}
+    public void deleteSingleItem(int singleItemId){productsRepository.deleteSingleItem(singleItemId);}
     LiveData<List<Products>> getProducts() {return products;}
 }

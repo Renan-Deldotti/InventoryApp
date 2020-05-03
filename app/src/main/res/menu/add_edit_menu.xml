@@ -11,5 +11,9 @@
         android:title="@string/save"
         android:icon="@drawable/ic_check"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/add_edit_delete"
+        android:title="@string/Delete"
+        app:showAsAction="never"/>
 
 </menu>

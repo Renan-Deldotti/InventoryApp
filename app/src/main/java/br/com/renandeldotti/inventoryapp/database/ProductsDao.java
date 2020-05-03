@@ -32,4 +32,7 @@ interface ProductsDao {
 
     @Query("DELETE FROM table_products")
     void deleteAllProducts();
+
+    @Query("DELETE FROM table_products WHERE id = :product_id")
+    void deleteSingleItem(int product_id);
 }

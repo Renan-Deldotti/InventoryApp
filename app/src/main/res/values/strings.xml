@@ -27,4 +27,7 @@
     <string name="invalid_name">Invalid name</string>
     <string name="product_not_saved">Product not saved</string>
     <string name="product_saved">Product saved</string>
+    <string name="Delete">Delete</string>
+    <string name="delete_confirm">Confirm delete?</string>
+    <string name="deleted">Deleted</string>
 </resources>
