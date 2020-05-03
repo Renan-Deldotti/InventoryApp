@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +21,9 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import br.com.renandeldotti.inventoryapp.database.Products;
+import br.com.renandeldotti.inventoryapp.database.ProductsViewModel;
+
 public class AddEditProduct extends AppCompatActivity {
 
     private static final int NAV_HOME = 1;
@@ -32,6 +36,7 @@ public class AddEditProduct extends AppCompatActivity {
     public static final String EXTRA_DESCRIPTION = "br.com.renandeldotti.inventoryapp.EXTRA_DESCRIPTION";
 
     private Intent intentCall;
+    private ProductsViewModel productsViewModel;
 
     private TextInputEditText productName;
     private EditText productQuantity, productPrice, productDescription;
@@ -105,9 +110,9 @@ public class AddEditProduct extends AppCompatActivity {
             productQuantity.setError(getResources().getString(R.string.invalid_quantity));
             return;
         }
-        int addPrice = 0;
+        float addPrice = 0;
         try {
-            addPrice = Integer.parseInt(productPrice.getText().toString().trim());
+            addPrice = Float.parseFloat(productPrice.getText().toString().trim());
         } catch (NumberFormatException e) {
             Toast.makeText(this,getResources().getString(R.string.invalid_price), Toast.LENGTH_SHORT).show();
             productPrice.setError(getResources().getString(R.string.invalid_price));
@@ -115,13 +120,19 @@ public class AddEditProduct extends AppCompatActivity {
         }
         String addDescription = productDescription.getText().toString().trim();
 
-        Intent data = new Intent();
+        /*Intent data = new Intent();
         data.putExtra(EXTRA_NAME,addName);
         data.putExtra(EXTRA_QUANTITY,addQuantity);
         data.putExtra(EXTRA_PRICE,addPrice);
         data.putExtra(EXTRA_DESCRIPTION,addDescription);
 
         setResult(RESULT_OK,data);
+        finish();*/
+
+        productsViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(ProductsViewModel.class);
+        Products products = new Products(addName,addDescription,addQuantity,addPrice);
+        productsViewModel.insert(products);
+        setResult(RESULT_OK);
         finish();
     }
 }

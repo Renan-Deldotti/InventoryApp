@@ -9,7 +9,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-class ProductsViewModel extends AndroidViewModel {
+public class ProductsViewModel extends AndroidViewModel {
 
     private ProductsRepository productsRepository;
     private LiveData<List<Products>> products;
@@ -20,7 +20,7 @@ class ProductsViewModel extends AndroidViewModel {
         products = productsRepository.getAllProducts();
     }
 
-    void insert(Products products){productsRepository.insert(products);}
+    public void insert(Products products){productsRepository.insert(products);}
     void update(Products products){productsRepository.update(products);}
     void delete(Products products){productsRepository.delete(products);}
     void deleteAll(){productsRepository.deleteAllData();}
