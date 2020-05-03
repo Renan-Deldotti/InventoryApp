@@ -17,4 +17,11 @@
     <string name="quantity">Quantidade</string>
     <string name="cancel">Cancelar</string>
     <string name="save">Salvar</string>
+    <string name="exit_message">Deseja cancelar?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="insert_new_data">Inserir novos dados</string>
+    <string name="invalid_quantity">Quantidade invalida</string>
+    <string name="invalid_price">Preço invalido</string>
+    <string name="invalid_name">Nome invalido</string>
 </resources>
