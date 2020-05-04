@@ -23,8 +23,6 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
 
     private String TAG = MainActivity.class.getSimpleName();
-    public static final int ADD_PRODUCT_REQUEST = 1;
-    public static final int EDIT_PRODUCT_REQUEST = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

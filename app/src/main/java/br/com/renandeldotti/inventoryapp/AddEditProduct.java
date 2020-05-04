@@ -29,15 +29,21 @@ public class AddEditProduct extends AppCompatActivity {
     private static final int NAV_HOME = 1;
     private static final int NAV_CANCEL = 2;
 
+    public static final int ADD_PRODUCT_REQUEST = 1;
+    public static final int EDIT_PRODUCT_REQUEST = 2;
+
     public static final String EXTRA_ID = "br.com.renandeldotti.inventoryapp.EXTRA_ID";
     public static final String EXTRA_NAME = "br.com.renandeldotti.inventoryapp.EXTRA_NAME";
     public static final String EXTRA_QUANTITY = "br.com.renandeldotti.inventoryapp.EXTRA_QUANTITY";
     public static final String EXTRA_PRICE = "br.com.renandeldotti.inventoryapp.EXTRA_PRICE";
     public static final String EXTRA_DESCRIPTION = "br.com.renandeldotti.inventoryapp.EXTRA_DESCRIPTION";
+    public static final String EXTRA_QUANTITY_SOLD = "br.com.renandeldotti.inventoryapp.EXTRA_QUANTITY_SOLD";
 
     private Intent intentCall;
     private ProductsViewModel productsViewModel;
-    private int thisProductId = -1;
+    private int defaultIdVal = -1;
+    private int thisProductId = defaultIdVal;
+    private boolean hasId = false;
 
     private TextInputEditText productName;
     private EditText productQuantity, productPrice, productDescription;
@@ -51,6 +57,10 @@ public class AddEditProduct extends AppCompatActivity {
         productsViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(ProductsViewModel.class);
 
         intentCall = getIntent();
+        if (intentCall.hasExtra(EXTRA_ID)){
+            hasId = true;
+            thisProductId = intentCall.getIntExtra(EXTRA_ID,defaultIdVal);
+        }
 
         productName = findViewById(R.id.add_product_name);
         productQuantity = findViewById(R.id.add_product_quantity);
@@ -67,12 +77,35 @@ public class AddEditProduct extends AppCompatActivity {
                 productDescription.setText("");
             }
         });
+
+        if (hasId){
+            populateFields();
+        }
+    }
+
+    private void populateFields() {
+        String nameToSet = intentCall.getStringExtra(EXTRA_NAME);
+        productName.setText(nameToSet);
+        String quantityToSet = String.valueOf(intentCall.getIntExtra(EXTRA_QUANTITY,0));
+        productQuantity.setText(quantityToSet);
+        String productPriceToSet = String.valueOf(intentCall.getFloatExtra(EXTRA_PRICE,0));
+        productPrice.setText(productPriceToSet);
+        String productDescriptionToSet = intentCall.getStringExtra(EXTRA_DESCRIPTION);
+        productDescription.setText(productDescriptionToSet);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.add_edit_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (!hasId){
+            menu.removeItem(R.id.add_edit_delete);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -94,6 +127,9 @@ public class AddEditProduct extends AppCompatActivity {
                 prepareToSave();
                 return true;
             case R.id.add_edit_delete:
+                if (!hasId){
+                    return true;
+                }
                 builder.setMessage(getResources().getString(R.string.delete_confirm));
                 builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
@@ -153,9 +189,15 @@ public class AddEditProduct extends AppCompatActivity {
         setResult(RESULT_OK,data);
         finish();*/
 
-
         Products products = new Products(addName,addDescription,addQuantity,addPrice);
-        productsViewModel.insert(products);
+        if (!hasId){
+            productsViewModel.insert(products);;
+            Toast.makeText(this, getResources().getString(R.string.product_saved), Toast.LENGTH_SHORT).show();
+        }else{
+            products.setId(thisProductId);
+            productsViewModel.update(products);
+            Toast.makeText(this, getResources().getString(R.string.product_updated), Toast.LENGTH_SHORT).show();
+        }
         setResult(RESULT_OK);
         finish();
     }

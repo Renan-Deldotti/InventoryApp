@@ -70,9 +70,11 @@ public class ProductsAdapter extends ListAdapter<Products, ProductsAdapter.Produ
 
     class ProductsHolder extends RecyclerView.ViewHolder{
         private TextView titleTv,quantityTv,priceTv;
+        private View thisView;
 
         public ProductsHolder(@NonNull View itemView) {
             super(itemView);
+            thisView = itemView;
             titleTv = itemView.findViewById(R.id.product_title);
             quantityTv = itemView.findViewById(R.id.product_quantity);
             priceTv = itemView.findViewById(R.id.product_price);
@@ -89,15 +91,17 @@ public class ProductsAdapter extends ListAdapter<Products, ProductsAdapter.Produ
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    if (context != null) {
+                    int position = getAdapterPosition();
+                    if (context != null && position != RecyclerView.NO_POSITION) {
                         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
                         if (vibrator != null)
                             vibrator.vibrate(50);
-                    }
+                    }else{return false;} // Verificar necessidade de retorno
                     if (longClickListener != null){
-                        longClickListener.onLongClick();
+                        longClickListener.onLongClick(thisView,getItem(position));
                     }
                     // False ---> faz com que clickListener normal seja chamado
+                    // True ----> faz com que apenas o LongClick seja chamado
                     return true;
                 }
             });
@@ -110,7 +114,7 @@ public class ProductsAdapter extends ListAdapter<Products, ProductsAdapter.Produ
         this.listener = listener;
     }
     public interface productsOnLongClickListener{
-        void onLongClick();
+        void onLongClick(View view, Products products);
     }
     public void productsSetOnLongClickListener(productsOnLongClickListener listener){
         this.longClickListener = listener;

@@ -1,7 +1,9 @@
 package br.com.renandeldotti.inventoryapp.ui.stock;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.HandlerThread;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +27,7 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import br.com.renandeldotti.inventoryapp.AddEditProduct;
 import br.com.renandeldotti.inventoryapp.ProductsAdapter;
 import br.com.renandeldotti.inventoryapp.R;
 import br.com.renandeldotti.inventoryapp.database.Products;
@@ -32,13 +35,14 @@ import br.com.renandeldotti.inventoryapp.database.Products;
 public class StockFragment extends Fragment {
 
     private StockViewModel stockViewModel;
+    private Products productToEdit;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_stock, container, false);
         setHasOptionsMenu(true);
         setMenuVisibility(false);
         stockViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(StockViewModel.class);
-        RecyclerView recyclerView = root.findViewById(R.id.stock_rv);
+        final RecyclerView recyclerView = root.findViewById(R.id.stock_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         final ProductsAdapter adapter = new ProductsAdapter(getContext());
@@ -58,20 +62,24 @@ public class StockFragment extends Fragment {
         adapter.productsSetOnItemClickListener(new ProductsAdapter.productsOnItemClickListener() {
             @Override
             public void onItemClick(Products products) {
-                Toast.makeText(getContext(), ""+products.getProduct_name(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), ""+products.getProduct_name(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Hold to edit", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), AddEditProduct.class);
+                intent.putExtra(AddEditProduct.EXTRA_ID,products.getId());
+                intent.putExtra(AddEditProduct.EXTRA_DESCRIPTION,products.getProduct_description());
+                intent.putExtra(AddEditProduct.EXTRA_PRICE,products.getPrice());
+                intent.putExtra(AddEditProduct.EXTRA_QUANTITY,products.getProduct_quantity());
+                intent.putExtra(AddEditProduct.EXTRA_NAME,products.getProduct_name());
+                intent.putExtra(AddEditProduct.EXTRA_QUANTITY_SOLD,products.getQuantity_sold());
+                startActivity(intent);
             }
         });
-        /*adapter.productsSetOnLongClickListener(new ProductsAdapter.productsOnLongClickListener() {
+        adapter.productsSetOnLongClickListener(new ProductsAdapter.productsOnLongClickListener() {
             @Override
-            public void onLongClick() {
-                Toast.makeText(getContext(),"long clicked",Toast.LENGTH_LONG).show();
-            }
-        });*/
-        recyclerView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Toast.makeText(getContext(), "Teste", Toast.LENGTH_SHORT).show();
-                return false;
+            public void onLongClick(View view, Products products) {
+                //stockViewModel.delete(products);
+                Toast.makeText(getContext(),products.getProduct_name()+"", Toast.LENGTH_SHORT).show();
+                //setMenuVisibility(true);
             }
         });
         /*Thread thread = new Thread(){
