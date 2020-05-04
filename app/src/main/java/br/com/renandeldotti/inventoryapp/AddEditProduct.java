@@ -89,6 +89,10 @@ public class AddEditProduct extends AppCompatActivity {
         String quantityToSet = String.valueOf(intentCall.getIntExtra(EXTRA_QUANTITY,0));
         productQuantity.setText(quantityToSet);
         String productPriceToSet = String.valueOf(intentCall.getFloatExtra(EXTRA_PRICE,0));
+        Log.e(AddEditProduct.class.getSimpleName(),"Price from intent in float: "+intentCall.getFloatExtra(EXTRA_PRICE,0));
+        Log.e(AddEditProduct.class.getSimpleName(),"Price from intent in string: "+productPriceToSet);
+        Log.e(AddEditProduct.class.getSimpleName(),"Higher float possible "+Float.MAX_VALUE);
+        Log.e(AddEditProduct.class.getSimpleName(),"Is infinity"+Float.isInfinite(intentCall.getFloatExtra(EXTRA_PRICE,0)));
         productPrice.setText(productPriceToSet);
         String productDescriptionToSet = intentCall.getStringExtra(EXTRA_DESCRIPTION);
         productDescription.setText(productDescriptionToSet);
@@ -173,6 +177,7 @@ public class AddEditProduct extends AppCompatActivity {
         float addPrice = 0;
         try {
             addPrice = Float.parseFloat(productPrice.getText().toString().trim());
+            Log.e(AddEditProduct.class.getSimpleName(),"Add price val: "+productPrice.getText().toString().trim());
         } catch (NumberFormatException e) {
             Toast.makeText(this,getResources().getString(R.string.invalid_price), Toast.LENGTH_SHORT).show();
             productPrice.setError(getResources().getString(R.string.invalid_price));
