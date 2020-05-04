@@ -1,6 +1,8 @@
 package br.com.renandeldotti.inventoryapp;
 
+import android.content.Context;
 import android.icu.util.Currency;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +21,17 @@ import br.com.renandeldotti.inventoryapp.database.Products;
 
 public class ProductsAdapter extends ListAdapter<Products, ProductsAdapter.ProductsHolder> {
 
+    private productsOnItemClickListener listener;
+    private productsOnLongClickListener longClickListener;
+    private Context context;
+
     public ProductsAdapter() {
         super(DIFF_ITEM_CALLBACK);
+    }
+
+    public ProductsAdapter(Context context){
+        super(DIFF_ITEM_CALLBACK);
+        this.context = context;
     }
 
     static final DiffUtil.ItemCallback<Products> DIFF_ITEM_CALLBACK = new DiffUtil.ItemCallback<Products>() {
@@ -69,10 +80,39 @@ public class ProductsAdapter extends ListAdapter<Products, ProductsAdapter.Produ
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.e(Products.class.getSimpleName(),"item position clicked: "+getAdapterPosition());
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION){
+                        listener.onItemClick(getItem(position));
+                    }
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (context != null) {
+                        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                        if (vibrator != null)
+                            vibrator.vibrate(50);
+                    }
+                    if (longClickListener != null){
+                        longClickListener.onLongClick();
+                    }
+                    // False ---> faz com que clickListener normal seja chamado
+                    return true;
                 }
             });
         }
     }
-
+    public interface productsOnItemClickListener{
+        void onItemClick(Products products);
+    }
+    public void productsSetOnItemClickListener(productsOnItemClickListener listener){
+        this.listener = listener;
+    }
+    public interface productsOnLongClickListener{
+        void onLongClick();
+    }
+    public void productsSetOnLongClickListener(productsOnLongClickListener listener){
+        this.longClickListener = listener;
+    }
 }

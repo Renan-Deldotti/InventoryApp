@@ -41,7 +41,7 @@ public class StockFragment extends Fragment {
         RecyclerView recyclerView = root.findViewById(R.id.stock_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        final ProductsAdapter adapter = new ProductsAdapter();
+        final ProductsAdapter adapter = new ProductsAdapter(getContext());
         recyclerView.setAdapter(adapter);
         try {
             stockViewModel.getProducts().observe(getViewLifecycleOwner(), new Observer<List<Products>>() {
@@ -55,6 +55,25 @@ public class StockFragment extends Fragment {
         } catch (Exception e) {
             Log.e(StockFragment.class.getSimpleName(),"Error: "+e);
         }
+        adapter.productsSetOnItemClickListener(new ProductsAdapter.productsOnItemClickListener() {
+            @Override
+            public void onItemClick(Products products) {
+                Toast.makeText(getContext(), ""+products.getProduct_name(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        /*adapter.productsSetOnLongClickListener(new ProductsAdapter.productsOnLongClickListener() {
+            @Override
+            public void onLongClick() {
+                Toast.makeText(getContext(),"long clicked",Toast.LENGTH_LONG).show();
+            }
+        });*/
+        recyclerView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getContext(), "Teste", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
         /*Thread thread = new Thread(){
             @Override
             public void run() {
