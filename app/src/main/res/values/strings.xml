@@ -33,4 +33,6 @@
     <string name="error_delete">Error deleting this product, try again.</string>
     <string name="edit">Edit</string>
     <string name="product_updated">Product updated</string>
+    <string name="edit_product">Edit Product</string>
+    <string name="add_product">Add product</string>
 </resources>

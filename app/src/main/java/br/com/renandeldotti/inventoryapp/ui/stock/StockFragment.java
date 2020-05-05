@@ -1,5 +1,7 @@
 package br.com.renandeldotti.inventoryapp.ui.stock;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.HandlerThread;
@@ -76,8 +78,28 @@ public class StockFragment extends Fragment {
             @Override
             public void onLongClick(View view, Products products) {
                 //stockViewModel.delete(products);
-                Toast.makeText(getContext(),products.getProduct_name()+"", Toast.LENGTH_SHORT).show();
-                //setMenuVisibility(true);
+                final Products inMethodProduct = products;
+                String[] options = getResources().getStringArray(R.array.edit_or_delete);
+                boolean[] optionsBool = new boolean[options.length];
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setItems(getResources().getStringArray(R.array.edit_or_delete), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == 0){
+                            stockViewModel.delete(inMethodProduct);
+                        }else{
+                            Intent intent = new Intent(getContext(), AddEditProduct.class);
+                            intent.putExtra(AddEditProduct.EXTRA_ID,inMethodProduct.getId());
+                            intent.putExtra(AddEditProduct.EXTRA_DESCRIPTION,inMethodProduct.getProduct_description());
+                            intent.putExtra(AddEditProduct.EXTRA_PRICE,inMethodProduct.getPrice());
+                            intent.putExtra(AddEditProduct.EXTRA_QUANTITY,inMethodProduct.getProduct_quantity());
+                            intent.putExtra(AddEditProduct.EXTRA_NAME,inMethodProduct.getProduct_name());
+                            intent.putExtra(AddEditProduct.EXTRA_QUANTITY_SOLD,inMethodProduct.getQuantity_sold());
+                            startActivity(intent);
+                        }
+                    }
+                });
+                builder.show();
             }
         });
         /*Thread thread = new Thread(){

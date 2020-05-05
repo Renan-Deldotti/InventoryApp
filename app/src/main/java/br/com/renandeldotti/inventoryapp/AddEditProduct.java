@@ -80,12 +80,12 @@ public class AddEditProduct extends AppCompatActivity {
         });
 
         if (hasId){
-            setTitle("Edit product");
+            setTitle(getResources().getString(R.string.edit_product));
             editTitleTV = findViewById(R.id.edit_add_title_textView);
-            editTitleTV.setText("Edit product");
+            editTitleTV.setText(getResources().getString(R.string.edit_product));
             populateFields();
         }else{
-            setTitle("Add product");
+            setTitle(getResources().getString(R.string.add_product));
         }
     }
 

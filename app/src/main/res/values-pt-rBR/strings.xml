@@ -32,4 +32,6 @@
     <string name="error_delete">Erro ao deletar esse produto, tente novamente.</string>
     <string name="edit">Editar</string>
     <string name="product_updated">Produto atualizado</string>
+    <string name="edit_product">Editar produto</string>
+    <string name="add_product">Adicionar produto</string>
 </resources>
