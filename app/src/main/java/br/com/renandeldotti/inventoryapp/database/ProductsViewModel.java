@@ -12,11 +12,13 @@ import java.util.List;
 public class ProductsViewModel extends AndroidViewModel {
 
     private ProductsRepository productsRepository;
+    private SoldRepository soldRepository;
     private LiveData<List<Products>> products;
 
     public ProductsViewModel(@NonNull Application application) {
         super(application);
         productsRepository = new ProductsRepository(application);
+        soldRepository = new SoldRepository(application);
         products = productsRepository.getAllProducts();
     }
 
@@ -26,4 +28,6 @@ public class ProductsViewModel extends AndroidViewModel {
     void deleteAll(){productsRepository.deleteAllData();}
     public void deleteSingleItem(int singleItemId){productsRepository.deleteSingleItem(singleItemId);}
     LiveData<List<Products>> getProducts() {return products;}
+
+    public void insertNewSale(Sold sold){soldRepository.insert(sold);}
 }

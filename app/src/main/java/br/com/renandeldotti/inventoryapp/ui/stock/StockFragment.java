@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.HandlerThread;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,11 +11,8 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,9 +20,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import br.com.renandeldotti.inventoryapp.AddEditProduct;
 import br.com.renandeldotti.inventoryapp.ProductsAdapter;
@@ -37,7 +29,6 @@ import br.com.renandeldotti.inventoryapp.database.Products;
 public class StockFragment extends Fragment {
 
     private StockViewModel stockViewModel;
-    private Products productToEdit;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_stock, container, false);
@@ -79,8 +70,6 @@ public class StockFragment extends Fragment {
             public void onLongClick(View view, Products products) {
                 //stockViewModel.delete(products);
                 final Products inMethodProduct = products;
-                String[] options = getResources().getStringArray(R.array.edit_or_delete);
-                boolean[] optionsBool = new boolean[options.length];
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setItems(getResources().getStringArray(R.array.edit_or_delete), new DialogInterface.OnClickListener() {
                     @Override

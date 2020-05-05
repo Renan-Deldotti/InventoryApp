@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,16 +22,17 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 import br.com.renandeldotti.inventoryapp.database.Products;
 import br.com.renandeldotti.inventoryapp.database.ProductsViewModel;
+import br.com.renandeldotti.inventoryapp.database.Sold;
 
 public class AddEditProduct extends AppCompatActivity {
-
-    private static final int NAV_HOME = 1;
-    private static final int NAV_CANCEL = 2;
-
-    public static final int ADD_PRODUCT_REQUEST = 1;
-    public static final int EDIT_PRODUCT_REQUEST = 2;
 
     public static final String EXTRA_ID = "br.com.renandeldotti.inventoryapp.EXTRA_ID";
     public static final String EXTRA_NAME = "br.com.renandeldotti.inventoryapp.EXTRA_NAME";
@@ -94,7 +96,8 @@ public class AddEditProduct extends AppCompatActivity {
         productName.setText(nameToSet);
         String quantityToSet = String.valueOf(intentCall.getIntExtra(EXTRA_QUANTITY,0));
         productQuantity.setText(quantityToSet);
-        String productPriceToSet = String.valueOf(intentCall.getFloatExtra(EXTRA_PRICE,0));
+        Float priceFloat = intentCall.getFloatExtra(EXTRA_PRICE,0);
+        String productPriceToSet = String.format(Locale.getDefault(),"%.2f",priceFloat);
         productPrice.setText(productPriceToSet);
         String productDescriptionToSet = intentCall.getStringExtra(EXTRA_DESCRIPTION);
         productDescription.setText(productDescriptionToSet);
@@ -162,13 +165,13 @@ public class AddEditProduct extends AppCompatActivity {
     }
 
     private void prepareToSave() {
-        String addName = productName.getText().toString().trim();
+        String addName = ""+productName.getText().toString().trim();
         if (TextUtils.isEmpty(addName) || addName.length() <= 3){
             Toast.makeText(this, getResources().getString(R.string.invalid_name), Toast.LENGTH_SHORT).show();
             productName.setError(getResources().getString(R.string.invalid_name));
             return;
         }
-        int addQuantity = 0;
+        int addQuantity;
         try {
              addQuantity = Integer.parseInt(productQuantity.getText().toString().trim());
         } catch (NumberFormatException e) {
@@ -176,9 +179,12 @@ public class AddEditProduct extends AppCompatActivity {
             productQuantity.setError(getResources().getString(R.string.invalid_quantity));
             return;
         }
-        float addPrice = 0;
+        float addPrice;
         try {
-            addPrice = Float.parseFloat(productPrice.getText().toString().trim());
+            String s1 = productPrice.getText().toString().trim();
+            s1 = s1.replace(',','.');
+            addPrice = Float.parseFloat(s1.trim());
+            Log.e(AddEditProduct.class.getSimpleName(),"val in Float:\t"+addPrice);
             if (Float.isInfinite(addPrice) || Float.isNaN(addPrice) || addPrice >= Float.MAX_VALUE){
                 throw new NumberFormatException();
             }
@@ -197,15 +203,36 @@ public class AddEditProduct extends AppCompatActivity {
 
         setResult(RESULT_OK,data);
         finish();*/
-
-        Products products = new Products(addName,addDescription,addQuantity,addPrice);
-        if (!hasId){
-            productsViewModel.insert(products);;
-            Toast.makeText(this, getResources().getString(R.string.product_saved), Toast.LENGTH_SHORT).show();
-        }else{
-            products.setId(thisProductId);
-            productsViewModel.update(products);
-            Toast.makeText(this, getResources().getString(R.string.product_updated), Toast.LENGTH_SHORT).show();
+        boolean wasInserted = false;
+        try {
+            Products products = new Products(addName,addDescription,addQuantity,addPrice);
+            if (!hasId){
+                productsViewModel.insert(products);
+                Toast.makeText(this, getResources().getString(R.string.product_saved), Toast.LENGTH_SHORT).show();
+            }else{
+                products.setId(thisProductId);
+                productsViewModel.update(products);
+                Toast.makeText(this, getResources().getString(R.string.product_updated), Toast.LENGTH_SHORT).show();
+            }
+            wasInserted = true;
+        } catch (Exception e) {
+            Log.e(AddEditProduct.class.getSimpleName(),"Something went wrong.");
+        }
+        if (wasInserted && hasId){
+            int quantitySold = 0;
+            int oldQuantity = intentCall.getIntExtra(EXTRA_QUANTITY,0);
+            if (addQuantity < oldQuantity){
+                 quantitySold = oldQuantity - addQuantity;
+                if (quantitySold < 0){
+                    quantitySold = oldQuantity;
+                }
+            }
+            String dateAdded = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
+            if (quantitySold != 0) {
+                Sold sold = new Sold(addName, addPrice, quantitySold, dateAdded);
+                productsViewModel.insertNewSale(sold);
+                Log.e("Added","Added: true");
+            }
         }
         setResult(RESULT_OK);
         finish();
