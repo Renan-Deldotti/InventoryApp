@@ -193,16 +193,9 @@ public class AddEditProduct extends AppCompatActivity {
             productPrice.setError(getResources().getString(R.string.invalid_price));
             return;
         }
+        
         String addDescription = productDescription.getText().toString().trim();
 
-        /*Intent data = new Intent();
-        data.putExtra(EXTRA_NAME,addName);
-        data.putExtra(EXTRA_QUANTITY,addQuantity);
-        data.putExtra(EXTRA_PRICE,addPrice);
-        data.putExtra(EXTRA_DESCRIPTION,addDescription);
-
-        setResult(RESULT_OK,data);
-        finish();*/
         boolean wasInserted = false;
         try {
             Products products = new Products(addName,addDescription,addQuantity,addPrice);
