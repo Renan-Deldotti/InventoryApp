@@ -48,6 +48,7 @@ public class AddEditProduct extends AppCompatActivity {
     private TextInputEditText productName;
     private EditText productQuantity, productPrice, productDescription;
     private Button clearFields;
+    private TextView editTitleTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,12 @@ public class AddEditProduct extends AppCompatActivity {
         });
 
         if (hasId){
+            setTitle("Edit product");
+            editTitleTV = findViewById(R.id.edit_add_title_textView);
+            editTitleTV.setText("Edit product");
             populateFields();
+        }else{
+            setTitle("Add product");
         }
     }
 

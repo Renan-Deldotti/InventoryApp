@@ -62,8 +62,6 @@ public class StockFragment extends Fragment {
         adapter.productsSetOnItemClickListener(new ProductsAdapter.productsOnItemClickListener() {
             @Override
             public void onItemClick(Products products) {
-//                Toast.makeText(getContext(), ""+products.getProduct_name(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getContext(), "Hold to edit", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), AddEditProduct.class);
                 intent.putExtra(AddEditProduct.EXTRA_ID,products.getId());
                 intent.putExtra(AddEditProduct.EXTRA_DESCRIPTION,products.getProduct_description());

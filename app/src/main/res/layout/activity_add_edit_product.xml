@@ -8,7 +8,7 @@
     tools:context=".AddEditProduct">
 
     <TextView
-        android:id="@+id/hold_text_004"
+        android:id="@+id/edit_add_title_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/product_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/hold_text_004">
+        app:layout_constraintTop_toBottomOf="@id/edit_add_title_textView">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/add_product_name"
