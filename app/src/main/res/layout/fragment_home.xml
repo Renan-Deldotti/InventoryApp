@@ -52,44 +52,56 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
                 android:paddingStart="8dp"
-                android:paddingEnd="8dp">
+                android:paddingTop="16dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="16dp">
 
                 <TextView
                     android:id="@+id/hold_id003"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/hold_id004"
                     android:ellipsize="end"
-                    android:text="Ritmo de vendas"
                     android:maxLines="1"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    android:text="Ritmo de vendas"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    app:layout_constraintEnd_toStartOf="@id/hold_id004"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/hold_text_007"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toStartOf="@id/hold_id004"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/hold_id003"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Acompanhe o crecimento total de vendas" />
+                    android:text="Acompanhe o crecimento total de vendas"
+                    app:layout_constraintEnd_toStartOf="@id/hold_id004"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hold_id003" />
 
                 <ImageView
                     android:id="@+id/hold_id004"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginEnd="8dp"
+                    android:contentDescription="Grafico"
                     android:src="@drawable/ic_grafico"
                     android:tint="@color/colorPrimary"
-                    android:contentDescription="Grafico" />
+                    app:layout_constraintBottom_toBottomOf="@id/hold_text_007"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/home_buttonShow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="teste"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/hold_text_007"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:visibility="gone"/>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
@@ -106,44 +118,44 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
                 android:paddingStart="8dp"
-                android:paddingEnd="8dp">
+                android:paddingTop="16dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="16dp">
 
                 <TextView
                     android:id="@+id/hold_id005"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/hold_id006"
                     android:ellipsize="end"
-                    android:text="Aumento de vendas"
                     android:maxLines="1"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    android:text="Aumento de vendas"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    app:layout_constraintEnd_toStartOf="@id/hold_id006"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toStartOf="@id/hold_id006"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/hold_id005"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Itens com crescimento constante" />
+                    android:text="Itens com crescimento constante"
+                    app:layout_constraintEnd_toStartOf="@id/hold_id006"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hold_id005" />
 
                 <ImageView
                     android:id="@+id/hold_id006"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginEnd="8dp"
+                    android:contentDescription="Plus"
                     android:src="@drawable/ic_plus_plus"
                     android:tint="@color/colorPrimary"
-                    android:contentDescription="Plus" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
@@ -160,44 +172,44 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
                 android:paddingStart="8dp"
-                android:paddingEnd="8dp">
+                android:paddingTop="16dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="16dp">
 
                 <TextView
                     android:id="@+id/hold_id007"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/hold_id008"
                     android:ellipsize="end"
-                    android:text="Queda de venda"
                     android:maxLines="1"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    android:text="Queda de venda"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    app:layout_constraintEnd_toStartOf="@id/hold_id008"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toStartOf="@id/hold_id008"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/hold_id007"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Itens com queda de vendas" />
+                    android:text="Itens com queda de vendas"
+                    app:layout_constraintEnd_toStartOf="@id/hold_id008"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hold_id007" />
 
                 <ImageView
                     android:id="@+id/hold_id008"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginEnd="8dp"
+                    android:contentDescription="Minus"
                     android:src="@drawable/ic_remove"
                     android:tint="@color/colorPrimary"
-                    android:contentDescription="Minus" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
@@ -214,44 +226,44 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
                 android:paddingStart="8dp"
-                android:paddingEnd="8dp">
+                android:paddingTop="16dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="16dp">
 
                 <TextView
                     android:id="@+id/hold_id009"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/hold_id010"
                     android:ellipsize="end"
-                    android:text="Lucro semanal"
                     android:maxLines="1"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    android:text="Lucro semanal"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    app:layout_constraintEnd_toStartOf="@id/hold_id010"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toStartOf="@id/hold_id010"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/hold_id009"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Lucro dos produtos vendidos na semana" />
+                    android:text="Lucro dos produtos vendidos na semana"
+                    app:layout_constraintEnd_toStartOf="@id/hold_id010"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hold_id009" />
 
                 <ImageView
                     android:id="@+id/hold_id010"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginEnd="8dp"
+                    android:contentDescription="money"
                     android:src="@drawable/ic_money"
                     android:tint="@color/colorPrimary"
-                    android:contentDescription="money" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
