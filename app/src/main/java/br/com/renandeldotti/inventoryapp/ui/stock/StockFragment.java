@@ -68,7 +68,6 @@ public class StockFragment extends Fragment {
         adapter.productsSetOnLongClickListener(new ProductsAdapter.productsOnLongClickListener() {
             @Override
             public void onLongClick(View view, Products products) {
-                //stockViewModel.delete(products);
                 final Products inMethodProduct = products;
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setItems(getResources().getStringArray(R.array.edit_or_delete), new DialogInterface.OnClickListener() {

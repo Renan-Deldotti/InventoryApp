@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,8 +22,6 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -49,8 +46,6 @@ public class AddEditProduct extends AppCompatActivity {
 
     private TextInputEditText productName;
     private EditText productQuantity, productPrice, productDescription;
-    private Button clearFields;
-    private TextView editTitleTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +64,7 @@ public class AddEditProduct extends AppCompatActivity {
         productQuantity = findViewById(R.id.add_product_quantity);
         productPrice = findViewById(R.id.add_product_price);
         productDescription = findViewById(R.id.add_product_description);
-        clearFields = findViewById(R.id.btn_clearFields);
+        Button clearFields = findViewById(R.id.btn_clearFields);
 
         clearFields.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +78,7 @@ public class AddEditProduct extends AppCompatActivity {
 
         if (hasId){
             setTitle(getResources().getString(R.string.edit_product));
-            editTitleTV = findViewById(R.id.edit_add_title_textView);
+            TextView editTitleTV = findViewById(R.id.edit_add_title_textView);
             editTitleTV.setText(getResources().getString(R.string.edit_product));
             populateFields();
         }else{
@@ -193,7 +188,7 @@ public class AddEditProduct extends AppCompatActivity {
             productPrice.setError(getResources().getString(R.string.invalid_price));
             return;
         }
-        
+
         String addDescription = productDescription.getText().toString().trim();
 
         boolean wasInserted = false;

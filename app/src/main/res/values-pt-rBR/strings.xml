@@ -34,4 +34,6 @@
     <string name="product_updated">Produto atualizado</string>
     <string name="edit_product">Editar produto</string>
     <string name="add_product">Adicionar produto</string>
+    <string name="average_price">Media de preço:</string>
+    <string name="last_sold">Vendido pela ultima vez:</string>
 </resources>

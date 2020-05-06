@@ -35,4 +35,6 @@
     <string name="product_updated">Product updated</string>
     <string name="edit_product">Edit Product</string>
     <string name="add_product">Add product</string>
+    <string name="average_price">Average price:</string>
+    <string name="last_sold">Last sold:</string>
 </resources>
