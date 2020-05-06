@@ -92,11 +92,16 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <Button
+                <TextView
                     android:id="@+id/home_buttonShow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
+                    android:text="
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris iaculis odio sed magna tempus iaculis. Morbi odio tellus, iaculis vel velit vitae, facilisis facilisis est. Donec facilisis, ligula ac vulputate congue, nunc libero placerat lorem, ut gravida magna enim at turpis. Sed scelerisque, felis eu convallis mollis, erat ex aliquet tortor, ac pharetra magna turpis sed leo. Cras condimentum risus sapien. Aenean eu commodo sem. Nunc quis leo a est placerat viverra sit amet at justo. Pellentesque auctor dignissim lobortis. Vivamus tempus, tortor sed sagittis interdum, sem elit placerat orci, sed vulputate velit nulla et eros.
+
+Nullam non commodo dolor. Sed velit purus, condimentum eu vehicula at, egestas at est. Proin vehicula felis eu nisl luctus, vel ultrices nulla iaculis. In fermentum velit eros, eu aliquet turpis suscipit sed. Suspendisse potenti. Vivamus id imperdiet lectus. Nunc malesuada ante eget ullamcorper volutpat. Sed ac nunc eget dui euismod ultricies. Sed id magna id arcu laoreet pretium. Ut mollis nibh feugiat, suscipit enim at, feugiat nulla.
+"
                     app:layout_constraintTop_toBottomOf="@id/hold_text_007"
                     app:layout_constraintStart_toStartOf="parent"
                     android:visibility="gone"/>
