@@ -37,4 +37,16 @@
     <string name="add_product">Add product</string>
     <string name="average_price">Average price:</string>
     <string name="last_sold">Last sold:</string>
+    <string name="grafico">Grafico</string>
+    <string name="track_sales">Track your sales growth</string>
+    <string name="rate_of_sales">Rate of sales</string>
+    <string name="sales_rise">Sales rise</string>
+    <string name="items_growth">Items with steady growth</string>
+    <string name="plus">Plus</string>
+    <string name="sales_drop">Sales drop</string>
+    <string name="minus">Minus</string>
+    <string name="items_decline">Items in sales decline</string>
+    <string name="weekly_profit">Weekly profit</string>
+    <string name="profit_sales">Profit from this week sales</string>
+    <string name="money">money</string>
 </resources>

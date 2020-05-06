@@ -36,4 +36,16 @@
     <string name="add_product">Adicionar produto</string>
     <string name="average_price">Media de preço:</string>
     <string name="last_sold">Vendido pela ultima vez:</string>
+    <string name="grafico">Grafico</string>
+    <string name="rate_of_sales">Ritmo de vendas</string>
+    <string name="track_sales">Acompanhe o crescimento de suas vendas</string>
+    <string name="sales_rise">Aumento de vendas</string>
+    <string name="items_growth">Itens com crescimento constante</string>
+    <string name="plus">Mais</string>
+    <string name="sales_drop">Queda de vendas</string>
+    <string name="minus">Menos</string>
+    <string name="items_decline">Itens com queda de vendas</string>
+    <string name="weekly_profit">Lucro semanal</string>
+    <string name="profit_sales">Lucro dos produtos vendidos na semana</string>
+    <string name="money">dinheiro</string>
 </resources>
