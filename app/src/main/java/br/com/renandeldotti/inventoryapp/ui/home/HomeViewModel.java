@@ -9,6 +9,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.renandeldotti.inventoryapp.database.QuantityAndPrice;
@@ -34,9 +35,10 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     String getSales(long since, LifecycleOwner owner){
+        long toSearch = new Date().getTime() - since;
         try {
-            if (soldRepository.getSoldSince(since) != null){
-                soldRepository.getSoldSince(since).observe(owner, new Observer<List<QuantityAndPrice>>() {
+            if (soldRepository.getSoldSince(toSearch) != null){
+                soldRepository.getSoldSince(toSearch).observe(owner, new Observer<List<QuantityAndPrice>>() {
                     @Override
                     public void onChanged(List<QuantityAndPrice> quantityAndPrices) {
                         long longSolds = 0;
