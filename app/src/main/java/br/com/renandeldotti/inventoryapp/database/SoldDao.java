@@ -23,4 +23,7 @@ public interface SoldDao {
 
     @Query("SELECT * FROM table_products_sold ORDER BY id DESC")
     LiveData<List<Sold>> getAllSales();
+
+    @Query("SELECT sold_price,quantity_sold FROM table_products_sold WHERE date_added > :dateToSearch")
+    LiveData<List<QuantityAndPrice>> getTotalSoldSince(long dateToSearch);
 }

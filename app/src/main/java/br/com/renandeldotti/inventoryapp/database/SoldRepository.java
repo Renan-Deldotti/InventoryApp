@@ -22,6 +22,10 @@ public class SoldRepository {
     }
     public void insert(Sold sold){new thisAsyncTask(soldDao).execute(sold);}
 
+    public LiveData<List<QuantityAndPrice>> getSoldSince(long dateInMilli) {
+        return soldDao.getTotalSoldSince(dateInMilli);
+    }
+
     private static class thisAsyncTask extends AsyncTask<Sold,Void,Void>{
         private SoldDao soldDao;
         thisAsyncTask(SoldDao soldDao){
