@@ -1,6 +1,7 @@
 package br.com.renandeldotti.inventoryapp.database;
 
 public class QuantityAndPrice {
+
     private float sold_price;
 
     private int quantity_sold;

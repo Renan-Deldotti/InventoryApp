@@ -160,7 +160,6 @@
                             android:text="@string/month_sales"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/home_monthSales_value"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/hold_text_005" />
 
