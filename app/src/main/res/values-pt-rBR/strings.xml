@@ -48,4 +48,7 @@
     <string name="weekly_profit">Lucro semanal</string>
     <string name="profit_sales">Lucro dos produtos vendidos na semana</string>
     <string name="money">dinheiro</string>
+    <string name="today_sales">Vendas de hoje:</string>
+    <string name="week_sales">Vendas da semana:</string>
+    <string name="month_sales">Vendas do mês:</string>
 </resources>

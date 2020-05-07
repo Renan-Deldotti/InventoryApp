@@ -49,4 +49,7 @@
     <string name="weekly_profit">Weekly profit</string>
     <string name="profit_sales">Profit from this week sales</string>
     <string name="money">money</string>
+    <string name="today_sales">Today sales:</string>
+    <string name="week_sales">Week sales:</string>
+    <string name="month_sales">Month sales:</string>
 </resources>
