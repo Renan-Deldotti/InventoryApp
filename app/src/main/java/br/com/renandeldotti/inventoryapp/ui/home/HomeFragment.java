@@ -46,9 +46,9 @@ public class HomeFragment extends Fragment {
                     tvRitmoVendas.setVisibility(View.VISIBLE);
                     isTvRitmoVendasVisible = View.VISIBLE;
 
-                    Log.e("Test :: Today sales: ", todaySales.getText().toString());
-                    Log.e("Test :: Week sales: ",weekSales.getText().toString());
-                    Log.e("Test :: Month sales: ",monthSales.getText().toString());
+                    Log.e("Test :: Today sales", todaySales.getText().toString());
+                    Log.e("Test :: Week sales",weekSales.getText().toString());
+                    Log.e("Test :: Month sales",monthSales.getText().toString());
                 }
             }
         });
