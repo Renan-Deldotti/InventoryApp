@@ -15,11 +15,11 @@ public class Sold {
 
     private int quantity_sold;
 
-    private String date_added;
+    private long date_added;
 
     // Constructor
 
-    public Sold(String product_name, float sold_price, int quantity_sold, String date_added) {
+    public Sold(String product_name, float sold_price, int quantity_sold, long date_added) {
         this.product_name = product_name;
         this.sold_price = sold_price;
         this.quantity_sold = quantity_sold;
@@ -48,5 +48,5 @@ public class Sold {
         return quantity_sold;
     }
 
-    public String getDate_added() {return date_added;}
+    public long getDate_added() {return date_added;}
 }

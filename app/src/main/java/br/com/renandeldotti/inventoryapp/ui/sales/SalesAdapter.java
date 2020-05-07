@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -47,12 +49,15 @@ public class SalesAdapter extends RecyclerView.Adapter<SalesAdapter.SalesHolder>
             String soldQuantityString = context.getResources().getString(R.string.quantity_sold) + sold.getQuantity_sold();
             String soldPriceString = context.getResources().getString(R.string.sold_for)+" R$ "+String.format(Locale.getDefault(),"%.2f",sold.getSold_price())+ " cada.";
             String soldTotalPrice = "R$ "+String.format(Locale.getDefault(),"%.2f",(sold.getQuantity_sold() * sold.getSold_price()));
-            String soldDate = sold.getDate_added();
+
+            long dateInMili = sold.getDate_added();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+            Date dateFromLong = new Date(dateInMili);
 
             holder.soldProductTv.setText(String.valueOf(sold.getProduct_name()));
             holder.soldQuantity.setText(soldQuantityString);
             holder.soldPrice.setText(soldPriceString);
-            holder.soldDate.setText(soldDate);
+            holder.soldDate.setText(simpleDateFormat.format(dateFromLong));
             holder.soldTotalPrice.setText(soldTotalPrice);
         }else{
             Log.e(SalesAdapter.class.getSimpleName(),"Null list");

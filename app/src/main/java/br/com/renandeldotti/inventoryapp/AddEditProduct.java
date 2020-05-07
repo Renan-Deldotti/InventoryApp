@@ -21,7 +21,9 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -179,7 +181,7 @@ public class AddEditProduct extends AppCompatActivity {
             String s1 = productPrice.getText().toString().trim();
             s1 = s1.replace(',','.');
             addPrice = Float.parseFloat(s1.trim());
-            Log.e(AddEditProduct.class.getSimpleName(),"val in Float:\t"+addPrice);
+            //Log.e(AddEditProduct.class.getSimpleName(),"val in Float:\t"+addPrice);
             if (Float.isInfinite(addPrice) || Float.isNaN(addPrice) || addPrice >= Float.MAX_VALUE){
                 throw new NumberFormatException();
             }
@@ -215,11 +217,21 @@ public class AddEditProduct extends AppCompatActivity {
                     quantitySold = oldQuantity;
                 }
             }
-            String dateAdded = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
+            // Jeito antigo:
+            //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+
+            // Novo jeito:
+//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()); // Formato da data
+//            Date dateString = new Date(); // Data atual
+//            long nowInLong = dateString.getTime(); // pega a data atual em miliseconds
+//            Date date = new Date(nowInLong); // cria uma data apartir dos miliseconds
+//            Log.e("Teste","Date: "+simpleDateFormat.format(date));
+
+            Date nowInDate = new Date();
+            long dateAdded = nowInDate.getTime();
             if (quantitySold != 0) {
                 Sold sold = new Sold(addName, addPrice, quantitySold, dateAdded);
                 productsViewModel.insertNewSale(sold);
-                Log.e("Added","Added: true");
             }
         }
         setResult(RESULT_OK);

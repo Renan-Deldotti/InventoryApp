@@ -63,7 +63,7 @@ abstract class InventoryDatabase extends RoomDatabase {
             noteDao.insert(new Products("Produto 3","Descrição 1",1,15));
             noteDao.insert(new Products("Produto 4","Descrição 1",1,15));
             noteDao.insert(new Products("Produto 5","Descrição 1",1,15));
-            String time = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(Calendar.getInstance().getTime());
+            long time = new Date().getTime();
             soldDao.insert(new Sold("Produto um",(float) 1.5,15,time));
             return null;
         }
