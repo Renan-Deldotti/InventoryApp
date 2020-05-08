@@ -10,9 +10,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.Date;
+import java.util.List;
+
 import br.com.renandeldotti.inventoryapp.R;
+import br.com.renandeldotti.inventoryapp.database.QuantityAndPrice;
 
 public class HomeFragment extends Fragment {
 

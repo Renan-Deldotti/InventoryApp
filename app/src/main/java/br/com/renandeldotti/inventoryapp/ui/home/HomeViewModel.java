@@ -30,10 +30,6 @@ public class HomeViewModel extends AndroidViewModel {
         soldRepository = new SoldRepository(application);
     }
 
-    LiveData<List<QuantityAndPrice>> getItemsSold(long sinceDate) {
-        return soldRepository.getSoldSince(sinceDate);
-    }
-
     String getSales(long since, LifecycleOwner owner){
         long toSearch = new Date().getTime() - since;
         try {
@@ -41,11 +37,11 @@ public class HomeViewModel extends AndroidViewModel {
                 soldRepository.getSoldSince(toSearch).observe(owner, new Observer<List<QuantityAndPrice>>() {
                     @Override
                     public void onChanged(List<QuantityAndPrice> quantityAndPrices) {
-                        long longSolds = 0;
+                        long longSold = 0;
                         for (int i =0; i< quantityAndPrices.size();i++){
-                            longSolds += quantityAndPrices.get(i).getQuantity_sold();
+                            longSold += quantityAndPrices.get(i).getQuantity_sold();
                         }
-                        quantityTotal = String.valueOf(longSolds);
+                        quantityTotal = String.valueOf(longSold);
                     }
                 });
             }else {
