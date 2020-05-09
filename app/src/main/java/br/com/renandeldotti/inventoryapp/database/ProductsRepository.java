@@ -23,6 +23,10 @@ public class ProductsRepository {
         products = productsDao.getAllProducts();
     }
 
+    public LiveData<List<Products>> getProductsSortedByQuantity(){
+        return productsDao.getAllProductsSortedByQuantity();
+    }
+
     public void insert(final Products products){
         InventoryDatabase.databaseWriterExecutor.execute(new Runnable() {
             @Override

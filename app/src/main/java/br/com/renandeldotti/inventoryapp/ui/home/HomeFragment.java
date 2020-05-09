@@ -59,7 +59,14 @@ public class HomeFragment extends Fragment {
         });
 
 
-        root.findViewById(R.id.aumento_vendas).setOnClickListener(clickListener);
+        root.findViewById(R.id.aumento_vendas).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+            }
+        });
+
+
         root.findViewById(R.id.queda_vendas).setOnClickListener(clickListener);
         root.findViewById(R.id.total_vendas).setOnClickListener(clickListener);
 

@@ -35,4 +35,7 @@ interface ProductsDao {
 
     @Query("DELETE FROM table_products WHERE id = :product_id")
     void deleteSingleItem(int product_id);
+
+    @Query("SELECT * FROM table_products ORDER BY quantity_sold")
+    LiveData<List<Products>> getAllProductsSortedByQuantity();
 }
