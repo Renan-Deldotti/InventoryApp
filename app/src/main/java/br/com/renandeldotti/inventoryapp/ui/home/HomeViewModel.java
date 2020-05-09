@@ -63,27 +63,22 @@ public class HomeViewModel extends AndroidViewModel {
         return quantityTotal;
     }
 
-    String[] mostSoldProducts(LifecycleOwner owner){
-        final String[] mostSold = new String[2];
+    String[] getMostSoldProducts(LifecycleOwner owner){
+        final String[] mostSold = new String[3];
         try {
             if (productsRepository.getProductsSortedByQuantity() != null){
                 productsRepository.getProductsSortedByQuantity().observe(owner, new Observer<List<Products>>() {
                     @Override
                     public void onChanged(List<Products> products) {
-                        if (products.size() >= 2){
-                            mostSold[0] = "Product "+products.get(0).getProduct_name() + "number of sales: "+products.get(0).getQuantity_sold();
-                            mostSold[1] = "Product "+products.get(1).getProduct_name() + "number of sales: "+products.get(1).getQuantity_sold();
-                        }else {
-                            if (products.size() == 1){
-                                mostSold[0] = "Product "+products.get(0).getProduct_name() + "number of sales: "+products.get(0).getQuantity_sold();
-                                mostSold[1] = "";
-                            }else{
-                                mostSold[0] = "";
-                                mostSold[1] = "";
-                            }
-                        }
+                        mostSold[2] = ""+products.size();
+                        Log.e("Homee","List size:::"+products.size());
+
+                        Log.e("Homee","index 0 quantitySold = "+products.get(0).getQuantity_sold());
                     }
                 });
+            }else {
+                mostSold[1] = "sorted == null";
+                Log.e("Homee","Val null");
             }
         } catch (Exception e) {
             Log.e(HomeViewModel.class.getSimpleName(),"Error\t"+e);

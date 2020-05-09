@@ -21,6 +21,8 @@ import br.com.renandeldotti.inventoryapp.database.QuantityAndPrice;
 
 public class HomeFragment extends Fragment {
 
+    private static final String TAG = HomeFragment.class.getSimpleName();
+
     private View tvRitmoVendas;
     private int isTvRitmoVendasVisible;
     private HomeViewModel homeViewModel;
@@ -62,7 +64,10 @@ public class HomeFragment extends Fragment {
         root.findViewById(R.id.aumento_vendas).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //
+                String[] mostSold = homeViewModel.getMostSoldProducts(getViewLifecycleOwner());
+                for ( String s : mostSold){
+                    Log.e(TAG,"Value of s: "+s);
+                }
             }
         });
 
