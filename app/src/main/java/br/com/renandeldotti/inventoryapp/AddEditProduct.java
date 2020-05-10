@@ -40,6 +40,8 @@ public class AddEditProduct extends AppCompatActivity {
     public static final String EXTRA_DESCRIPTION = "br.com.renandeldotti.inventoryapp.EXTRA_DESCRIPTION";
     public static final String EXTRA_QUANTITY_SOLD = "br.com.renandeldotti.inventoryapp.EXTRA_QUANTITY_SOLD";
 
+    private static final String TAG = AddEditProduct.class.getSimpleName();
+
     private Intent intentCall;
     private ProductsViewModel productsViewModel;
     private int defaultIdVal = -1;
@@ -201,6 +203,20 @@ public class AddEditProduct extends AppCompatActivity {
                 Toast.makeText(this, getResources().getString(R.string.product_saved), Toast.LENGTH_SHORT).show();
             }else{
                 products.setId(thisProductId);
+
+                // Checa quantidade vendida
+                int quantitySold = 0;
+                int oldQuantity = intentCall.getIntExtra(EXTRA_QUANTITY,0);
+                int oldQuantitySold = intentCall.getIntExtra(EXTRA_QUANTITY_SOLD,0);
+
+                int newQuantityToAdd = 0;
+                if (oldQuantity >= addQuantity){
+                    newQuantityToAdd = oldQuantity - addQuantity;
+                    newQuantityToAdd += oldQuantitySold;
+                }else {
+                    newQuantityToAdd = oldQuantitySold;
+                }
+                products.setQuantity_sold(newQuantityToAdd);
                 productsViewModel.update(products);
                 Toast.makeText(this, getResources().getString(R.string.product_updated), Toast.LENGTH_SHORT).show();
             }

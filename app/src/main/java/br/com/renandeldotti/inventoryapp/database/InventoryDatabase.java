@@ -58,13 +58,24 @@ abstract class InventoryDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            noteDao.insert(new Products("Produto 1","Descrição 1",1,15));
-            noteDao.insert(new Products("Produto 2","Descrição 1",1,15));
-            noteDao.insert(new Products("Produto 3","Descrição 1",1,15));
+            Products productsUm = new Products("Produto 1","Descrição 1",1,15);
+            productsUm.setQuantity_sold(51);
+            noteDao.insert(productsUm);
+
+            Products productsDois = new Products("Produto 2","Descrição 1",1,15);
+            productsDois.setQuantity_sold(34);
+            noteDao.insert(productsDois);
+
+            Products productsTres = new Products("Produto 3","Descrição 1",1,15);
+            productsTres.setQuantity_sold(15);
+            noteDao.insert(productsTres);
+
             noteDao.insert(new Products("Produto 4","Descrição 1",1,15));
             noteDao.insert(new Products("Produto 5","Descrição 1",1,15));
+
             long time = new Date().getTime();
             soldDao.insert(new Sold("Produto um",(float) 1.5,15,time));
+
             return null;
         }
     }
