@@ -65,9 +65,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String[] mostSold = homeViewModel.getMostSoldProducts(getViewLifecycleOwner());
-                for ( String s : mostSold){
-                    Log.e(TAG,"Value of s: "+s);
-                }
+                
             }
         });
 
