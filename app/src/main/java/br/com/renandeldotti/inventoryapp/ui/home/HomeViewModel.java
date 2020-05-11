@@ -74,8 +74,12 @@ public class HomeViewModel extends AndroidViewModel {
                 productsRepository.getProductsSortedByQuantity().observe(owner, new Observer<List<Products>>() {
                     @Override
                     public void onChanged(List<Products> products) {
-                        mostSoldOne = String.valueOf(products.get(0).getQuantity_sold());
-                        mostSoldTwo = String.valueOf(products.get(1).getQuantity_sold());
+                        if(products.size() >= 1){
+                            mostSoldOne = String.valueOf(products.get(0).getQuantity_sold());
+                            if (products.size() >= 2){
+                                mostSoldTwo = String.valueOf(products.get(1).getQuantity_sold());
+                            }
+                        }
                     }
                 });
             }
