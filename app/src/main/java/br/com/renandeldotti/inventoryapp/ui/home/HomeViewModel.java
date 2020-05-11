@@ -88,7 +88,33 @@ public class HomeViewModel extends AndroidViewModel {
                 });
             }
         } catch (Exception e) {
-            Log.e(HomeViewModel.class.getSimpleName(),"Error\t"+e);
+            Log.e(TAG,"Error\t"+e);
+        }
+        return new String[][]{s1,s2};
+    }
+    String[][] getLessSoldProducts(LifecycleOwner owner){
+        try {
+            if(productsRepository.getProductsSortedByQuantity() != null){
+                productsRepository.getProductsSortedByQuantity().observe(owner, new Observer<List<Products>>() {
+                    @Override
+                    public void onChanged(List<Products> products) {
+                        int arrSize = products.size();
+                        if (arrSize > 1){
+                            s1[0] = products.get(arrSize-1).getProduct_name();
+                            s1[1] = String.valueOf(products.get(arrSize-1).getQuantity_sold());
+                            s2[0] = products.get(arrSize-2).getProduct_name();
+                            s2[1] = String.valueOf(products.get(arrSize-2).getQuantity_sold());
+                        }else if(arrSize == 1){
+                            s1[0] = products.get(arrSize-1).getProduct_name();
+                            s1[1] = String.valueOf(products.get(arrSize-1).getQuantity_sold());
+                            s2[0] = "";
+                            s2[1] = "";
+                        }
+                    }
+                });
+            }
+        }catch (Exception e) {
+            Log.e(TAG,"Error\t"+e);
         }
         return new String[][]{s1,s2};
     }

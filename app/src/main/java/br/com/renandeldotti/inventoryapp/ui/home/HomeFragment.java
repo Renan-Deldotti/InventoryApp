@@ -83,7 +83,32 @@ public class HomeFragment extends Fragment {
         });
 
 
-        root.findViewById(R.id.queda_vendas).setOnClickListener(clickListener);
+        root.findViewById(R.id.queda_vendas).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View view = root.findViewById(R.id.home_salesDrop_hidden);
+
+                if (view.getVisibility() == View.GONE) {
+                    String[][] lessSold = homeViewModel.getLessSoldProducts(getViewLifecycleOwner());
+                    TextView salesDropFirstName = root.findViewById(R.id.home_salesDrop_first_name);
+                    TextView salesDropFirstValue = root.findViewById(R.id.home_salesDrop_first_value);
+                    TextView salesDropSecondName = root.findViewById(R.id.home_salesDrop_second_name);
+                    TextView salesDropSecondValue = root.findViewById(R.id.home_salesDrop_second_value);
+
+                    if (lessSold != null && lessSold.length > 1) {
+                        salesDropFirstName.setText(lessSold[0][0]);
+                        salesDropFirstValue.setText(lessSold[0][1]);
+                        salesDropSecondName.setText(lessSold[1][0]);
+                        salesDropSecondValue.setText(lessSold[1][1]);
+                    }
+                    view.setVisibility(View.VISIBLE);
+                }else{
+                    view.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
         root.findViewById(R.id.total_vendas).setOnClickListener(clickListener);
 
 
