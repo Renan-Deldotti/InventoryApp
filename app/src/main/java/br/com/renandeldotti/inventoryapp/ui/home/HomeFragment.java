@@ -29,7 +29,7 @@ public class HomeFragment extends Fragment {
     private TextView todaySales,weekSales,monthSales;
 
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        final View root = inflater.inflate(R.layout.fragment_home, container, false);
         homeViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(HomeViewModel.class);
 
         tvRitmoVendas = root.findViewById(R.id.home_rateSales_hidden);
@@ -64,7 +64,21 @@ public class HomeFragment extends Fragment {
         root.findViewById(R.id.aumento_vendas).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] mostSold = homeViewModel.getMostSoldProducts(getViewLifecycleOwner());
+                View view = root.findViewById(R.id.home_salesRise_hidden);
+
+                if (view.getVisibility() == View.GONE) {
+                    String[] mostSold = homeViewModel.getMostSoldProducts(getViewLifecycleOwner());
+                    TextView salesRiseFirst = root.findViewById(R.id.home_salesRise_first);
+                    TextView salesRiseSecond = root.findViewById(R.id.home_salesRise_second);
+
+                    if (mostSold != null && mostSold.length > 1) {
+                        salesRiseFirst.setText(mostSold[0]);
+                        salesRiseSecond.setText(mostSold[1]);
+                    }
+                    view.setVisibility(View.VISIBLE);
+                }else{
+                    view.setVisibility(View.GONE);
+                }
 
             }
         });

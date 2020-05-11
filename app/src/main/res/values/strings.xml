@@ -52,4 +52,6 @@
     <string name="today_sales">Today sales:</string>
     <string name="week_sales">Week sales:</string>
     <string name="month_sales">Month sales:</string>
+    <string name="first_in_number">1º</string>
+    <string name="second_in_number">2º</string>
 </resources>

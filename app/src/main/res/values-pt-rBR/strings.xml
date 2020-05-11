@@ -51,4 +51,6 @@
     <string name="today_sales">Vendas de hoje:</string>
     <string name="week_sales">Vendas da semana:</string>
     <string name="month_sales">Vendas do mês:</string>
+    <string name="first_in_number">1º</string>
+    <string name="second_in_number">2º</string>
 </resources>
