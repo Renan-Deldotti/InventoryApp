@@ -68,16 +68,20 @@ public class HomeViewModel extends AndroidViewModel {
         return quantityTotal;
     }
 
-    String[] getMostSoldProducts(LifecycleOwner owner){
+    private String[] s1 = {"",""};
+    private String[] s2 = {"",""};
+    String[][] getMostSoldProducts(LifecycleOwner owner){
         try {
             if (productsRepository.getProductsSortedByQuantity() != null){
                 productsRepository.getProductsSortedByQuantity().observe(owner, new Observer<List<Products>>() {
                     @Override
                     public void onChanged(List<Products> products) {
                         if(products.size() >= 1){
-                            mostSoldOne = String.valueOf(products.get(0).getQuantity_sold());
+                            s1[0] = products.get(0).getProduct_name();
+                            s1[1] = String.valueOf(products.get(0).getQuantity_sold());
                             if (products.size() >= 2){
-                                mostSoldTwo = String.valueOf(products.get(1).getQuantity_sold());
+                                s2[0] = products.get(1).getProduct_name();
+                                s2[1] = String.valueOf(products.get(1).getQuantity_sold());
                             }
                         }
                     }
@@ -86,6 +90,6 @@ public class HomeViewModel extends AndroidViewModel {
         } catch (Exception e) {
             Log.e(HomeViewModel.class.getSimpleName(),"Error\t"+e);
         }
-        return new String[]{mostSoldOne,mostSoldTwo};
+        return new String[][]{s1,s2};
     }
 }

@@ -10,14 +10,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
-import java.util.Date;
-import java.util.List;
-
 import br.com.renandeldotti.inventoryapp.R;
-import br.com.renandeldotti.inventoryapp.database.QuantityAndPrice;
 
 public class HomeFragment extends Fragment {
 
@@ -67,13 +62,17 @@ public class HomeFragment extends Fragment {
                 View view = root.findViewById(R.id.home_salesRise_hidden);
 
                 if (view.getVisibility() == View.GONE) {
-                    String[] mostSold = homeViewModel.getMostSoldProducts(getViewLifecycleOwner());
-                    TextView salesRiseFirst = root.findViewById(R.id.home_salesRise_first);
-                    TextView salesRiseSecond = root.findViewById(R.id.home_salesRise_second);
+                    String[][] mostSold = homeViewModel.getMostSoldProducts(getViewLifecycleOwner());
+                    TextView salesRiseFirstName = root.findViewById(R.id.home_salesRise_first_name);
+                    TextView salesRiseFirstValue = root.findViewById(R.id.home_salesRise_first_value);
+                    TextView salesRiseSecondName = root.findViewById(R.id.home_salesRise_second_name);
+                    TextView salesRiseSecondValue = root.findViewById(R.id.home_salesRise_second_value);
 
                     if (mostSold != null && mostSold.length > 1) {
-                        salesRiseFirst.setText(mostSold[0]);
-                        salesRiseSecond.setText(mostSold[1]);
+                        salesRiseFirstName.setText(mostSold[0][0]);
+                        salesRiseFirstValue.setText(mostSold[0][1]);
+                        salesRiseSecondName.setText(mostSold[1][0]);
+                        salesRiseSecondValue.setText(mostSold[1][1]);
                     }
                     view.setVisibility(View.VISIBLE);
                 }else{

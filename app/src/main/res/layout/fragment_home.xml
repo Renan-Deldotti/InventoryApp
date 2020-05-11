@@ -232,7 +232,7 @@
                     android:contentDescription="@string/plus"
                     android:src="@drawable/ic_plus_plus"
                     android:tint="@color/colorPrimary"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/home_salesRise_hidden"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -256,20 +256,43 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="8dp"
                             android:text="@string/first_in_number"
-                            app:layout_constraintBottom_toBottomOf="@id/home_salesRise_first"
+                            app:layout_constraintBottom_toBottomOf="@id/home_salesRise_first_name"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/home_salesRise_first"
-                            android:layout_width="0dp"
+                            android:id="@+id/home_salesRise_first_name"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             android:paddingHorizontal="8dp"
                             android:text=""
-                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/hold_id015"
+                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toEndOf="@id/hold_id013"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:text="Produto Um" />
+
+                        <TextView
+                            android:id="@+id/hold_id015"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="8dp"
+                            android:text="@string/quantity_sold"
+                            app:layout_constraintEnd_toStartOf="@id/home_salesRise_first_value"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/home_salesRise_first_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="8dp"
+                            android:text=""
+                            app:layout_constraintBottom_toBottomOf="@id/home_salesRise_first_name"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="100" />
 
                         <TextView
                             android:id="@+id/hold_id014"
@@ -279,19 +302,41 @@
                             android:text="@string/second_in_number"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/home_salesRise_first" />
+                            app:layout_constraintTop_toBottomOf="@id/home_salesRise_first_name" />
 
                         <TextView
-                            android:id="@+id/home_salesRise_second"
+                            android:id="@+id/home_salesRise_second_name"
                             android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="8dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text=""
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/hold_id016"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@id/hold_id014"
+                            app:layout_constraintTop_toTopOf="@id/hold_id014"
+                            tools:text="Produto Dois" />
+
+                        <TextView
+                            android:id="@+id/hold_id016"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="8dp"
+                            android:text="@string/quantity_sold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/home_salesRise_second_value" />
+
+                        <TextView
+                            android:id="@+id/home_salesRise_second_value"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="8dp"
                             android:text=""
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/hold_id014"
-                            app:layout_constraintTop_toTopOf="@id/hold_id014"
-                            tools:text="Produto Dois" />
+                            tools:text="150" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </FrameLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
