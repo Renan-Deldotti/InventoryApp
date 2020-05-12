@@ -29,10 +29,7 @@ public class HomeViewModel extends AndroidViewModel {
     static final long ONE_WEEK = 604800000;
     static final long ONE_MONTH = Long.parseLong("2628000000");
 
-    private String quantityTotal = "";
     private LiveData<List<Products>> allProducts,productsSorted;
-    private String mostSoldOne = "";
-    private String mostSoldTwo = "";
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
@@ -45,56 +42,13 @@ public class HomeViewModel extends AndroidViewModel {
         return allProducts;
     }
 
-    String getSales(long since, LifecycleOwner owner){
-        long toSearch = new Date().getTime() - since;
-        try {
-            if (soldRepository.getSoldSince(toSearch) != null){
-                soldRepository.getSoldSince(toSearch).observe(owner, new Observer<List<QuantityAndPrice>>() {
-                    @Override
-                    public void onChanged(List<QuantityAndPrice> quantityAndPrices) {
-                        long longSold = 0;
-                        for (int i =0; i< quantityAndPrices.size();i++){
-                            longSold += quantityAndPrices.get(i).getQuantity_sold();
-                        }
-                        quantityTotal = String.valueOf(longSold);
-                    }
-                });
-            }else {
-                quantityTotal = "0";
-            }
-        }catch (Exception e){
-            Log.e(HomeViewModel.class.getSimpleName(),"Error:\t"+e);
-            quantityTotal = "Error";
-        }
-        return quantityTotal;
-    }
-
-    private String[] s1 = {"",""};
-    private String[] s2 = {"",""};
-    String[][] getMostSoldProducts(LifecycleOwner owner){
-        try {
-            if (productsRepository.getProductsSortedByQuantity() != null){
-                productsRepository.getProductsSortedByQuantity().observe(owner, new Observer<List<Products>>() {
-                    @Override
-                    public void onChanged(List<Products> products) {
-                        if(products.size() >= 1){
-                            s1[0] = products.get(0).getProduct_name();
-                            s1[1] = String.valueOf(products.get(0).getQuantity_sold());
-                            if (products.size() >= 2){
-                                s2[0] = products.get(1).getProduct_name();
-                                s2[1] = String.valueOf(products.get(1).getQuantity_sold());
-                            }
-                        }
-                    }
-                });
-            }
-        } catch (Exception e) {
-            Log.e(TAG,"Error\t"+e);
-        }
-        return new String[][]{s1,s2};
-    }
-
     public LiveData<List<Products>> getProductsSorted() {
         return productsSorted;
     }
+
+    public LiveData<List<QuantityAndPrice>> getSalesSince(long since) {
+        long toSearch = new Date().getTime() - since;
+        return soldRepository.getSoldSince(toSearch);
+    }
+
 }

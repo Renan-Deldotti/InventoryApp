@@ -18,44 +18,67 @@ import java.util.List;
 
 import br.com.renandeldotti.inventoryapp.R;
 import br.com.renandeldotti.inventoryapp.database.Products;
+import br.com.renandeldotti.inventoryapp.database.QuantityAndPrice;
 
 public class HomeFragment extends Fragment {
 
-    private static final String TAG = HomeFragment.class.getSimpleName();
+    private static final String LOG_TAG = HomeFragment.class.getSimpleName();
 
-    private View tvRitmoVendas;
-    private int isTvRitmoVendasVisible;
     private HomeViewModel homeViewModel;
-    private TextView todaySales,weekSales,monthSales;
 
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
         homeViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(HomeViewModel.class);
 
-        tvRitmoVendas = root.findViewById(R.id.home_rateSales_hidden);
-        isTvRitmoVendasVisible = tvRitmoVendas.getVisibility();
-
-        todaySales = root.findViewById(R.id.home_todaySales_value);
-        weekSales = root.findViewById(R.id.home_weekSales_value);
-        monthSales = root.findViewById(R.id.home_monthSales_value);
-
         root.findViewById(R.id.ritmo_vendas).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isTvRitmoVendasVisible == View.VISIBLE){
+                View tvRitmoVendas = root.findViewById(R.id.home_rateSales_hidden);
+
+                final TextView todaySales = root.findViewById(R.id.home_todaySales_value);
+                final TextView weekSales = root.findViewById(R.id.home_weekSales_value);
+                final TextView monthSales = root.findViewById(R.id.home_monthSales_value);
+
+                if (tvRitmoVendas.getVisibility() == View.VISIBLE){
                     tvRitmoVendas.setVisibility(View.GONE);
-                    isTvRitmoVendasVisible = View.GONE;
                 }else {
-                    todaySales.setText(homeViewModel.getSales(HomeViewModel.ONE_DAY,getViewLifecycleOwner()));
-                    weekSales.setText(homeViewModel.getSales(HomeViewModel.ONE_WEEK,getViewLifecycleOwner()));
-                    monthSales.setText(homeViewModel.getSales(HomeViewModel.ONE_MONTH,getViewLifecycleOwner()));
-
+                    if (homeViewModel.getSalesSince(HomeViewModel.ONE_DAY) != null){
+                        homeViewModel.getSalesSince(HomeViewModel.ONE_DAY).observe(getViewLifecycleOwner(), new Observer<List<QuantityAndPrice>>() {
+                            @Override
+                            public void onChanged(List<QuantityAndPrice> quantityAndPrices) {
+                                long soldQuantity = 0;
+                                for (QuantityAndPrice qp : quantityAndPrices){
+                                    soldQuantity += qp.getQuantity_sold();
+                                }
+                                todaySales.setText(String.valueOf(soldQuantity));
+                            }
+                        });
+                    }
+                    if (homeViewModel.getSalesSince(HomeViewModel.ONE_WEEK) != null){
+                        homeViewModel.getSalesSince(HomeViewModel.ONE_WEEK).observe(getViewLifecycleOwner(), new Observer<List<QuantityAndPrice>>() {
+                            @Override
+                            public void onChanged(List<QuantityAndPrice> quantityAndPrices) {
+                                long soldQuantity = 0;
+                                for (QuantityAndPrice qp : quantityAndPrices){
+                                    soldQuantity += qp.getQuantity_sold();
+                                }
+                                weekSales.setText(String.valueOf(soldQuantity));
+                            }
+                        });
+                    }
+                    if (homeViewModel.getSalesSince(HomeViewModel.ONE_MONTH) != null){
+                        homeViewModel.getSalesSince(HomeViewModel.ONE_MONTH).observe(getViewLifecycleOwner(), new Observer<List<QuantityAndPrice>>() {
+                            @Override
+                            public void onChanged(List<QuantityAndPrice> quantityAndPrices) {
+                                long soldQuantity = 0;
+                                for (QuantityAndPrice qp : quantityAndPrices){
+                                    soldQuantity += qp.getQuantity_sold();
+                                }
+                                monthSales.setText(String.valueOf(soldQuantity));
+                            }
+                        });
+                    }
                     tvRitmoVendas.setVisibility(View.VISIBLE);
-                    isTvRitmoVendasVisible = View.VISIBLE;
-
-                    Log.e("Test :: Today sales", todaySales.getText().toString());
-                    Log.e("Test :: Week sales",weekSales.getText().toString());
-                    Log.e("Test :: Month sales",monthSales.getText().toString());
                 }
             }
         });
@@ -147,16 +170,13 @@ public class HomeFragment extends Fragment {
         });
 
 
-        root.findViewById(R.id.total_vendas).setOnClickListener(clickListener);
-
+        root.findViewById(R.id.total_vendas).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Em desenvolvimento...", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return root;
     }
-
-    private View.OnClickListener clickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(getActivity(), "Todo: Criar tela...", Toast.LENGTH_SHORT).show();
-        }
-    };
 }
