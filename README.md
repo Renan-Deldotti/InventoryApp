@@ -1,14 +1,18 @@
 # InventoryApp
-Projeto final do curso "Android Basics: Data Storage"
+Aplicativo de gerencimento de estoque e vendas.
 ____
 Sobre o aplicativo
 ---
-Esse aplicativo tem como finalidade concluir os estudos do curso UD845
+O aplicativo tem como finalidade gerenciar vendas de um determinado estabelecimento e mostrar dados relativos a vendas, como por exemplo, quantidade de vendas por período, itens mais vendidos, crescimento de vendas, lucro, etc.
 <br><br>
-Nele é possivel o gerenciamento através de um smartphone Android de um estoque de itens armazenados em um banco de dados SQLite onde há opções de adição, modificação, leitura e deleção dos dados.
+Nele é possivel o gerenciamento por um smartphone Android de um estoque de itens armazenados em um banco de dados SQLite (previsto também suporte a cloud storage).
 <br><br>
-Os dados armazenados de forma estruturada no SQLite são obtidos através de um formulário de adição contido no aplicativo.
+
+Screenshots
+---
 
 Observações
 ---
-Versão do android: 4.4 +  (KitKat)
+Em desenvolvimento...<br>
+Iniciado como projeto de conclusão do curso de Android UD845 da Udacity<br>
+Versão do android requerida: 4.4 +  (KitKat)
