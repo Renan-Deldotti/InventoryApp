@@ -30,7 +30,7 @@ public class HomeViewModel extends AndroidViewModel {
     static final long ONE_MONTH = Long.parseLong("2628000000");
 
     private String quantityTotal = "";
-    private LiveData<List<Products>> allProducts;
+    private LiveData<List<Products>> allProducts,productsSorted;
     private String mostSoldOne = "";
     private String mostSoldTwo = "";
 
@@ -38,6 +38,7 @@ public class HomeViewModel extends AndroidViewModel {
         super(application);
         soldRepository = new SoldRepository(application);
         productsRepository = new ProductsRepository(application);
+        productsSorted = productsRepository.getProductsSortedByQuantity();
     }
 
     public LiveData<List<Products>> getAllProducts() {
@@ -92,30 +93,8 @@ public class HomeViewModel extends AndroidViewModel {
         }
         return new String[][]{s1,s2};
     }
-    String[][] getLessSoldProducts(LifecycleOwner owner){
-        try {
-            if(productsRepository.getProductsSortedByQuantity() != null){
-                productsRepository.getProductsSortedByQuantity().observe(owner, new Observer<List<Products>>() {
-                    @Override
-                    public void onChanged(List<Products> products) {
-                        int arrSize = products.size();
-                        if (arrSize > 1){
-                            s1[0] = products.get(arrSize-1).getProduct_name();
-                            s1[1] = String.valueOf(products.get(arrSize-1).getQuantity_sold());
-                            s2[0] = products.get(arrSize-2).getProduct_name();
-                            s2[1] = String.valueOf(products.get(arrSize-2).getQuantity_sold());
-                        }else if(arrSize == 1){
-                            s1[0] = products.get(arrSize-1).getProduct_name();
-                            s1[1] = String.valueOf(products.get(arrSize-1).getQuantity_sold());
-                            s2[0] = "";
-                            s2[1] = "";
-                        }
-                    }
-                });
-            }
-        }catch (Exception e) {
-            Log.e(TAG,"Error\t"+e);
-        }
-        return new String[][]{s1,s2};
+
+    public LiveData<List<Products>> getProductsSorted() {
+        return productsSorted;
     }
 }
