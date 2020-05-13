@@ -56,4 +56,5 @@
     <string name="profit">Lucros</string>
     <string name="daily_profit">Lucro diario:</string>
     <string name="monthly_profit">Lucro mensal:</string>
+    <string name="sell">Vender</string>
 </resources>

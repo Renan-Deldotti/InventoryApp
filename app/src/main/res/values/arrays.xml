@@ -3,5 +3,6 @@
     <string-array name="edit_or_delete">
         <item>@string/Delete</item>
         <item>@string/edit</item>
+        <item>@string/sell</item>
     </string-array>
 </resources>

@@ -73,17 +73,21 @@ public class StockFragment extends Fragment {
                 builder.setItems(getResources().getStringArray(R.array.edit_or_delete), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (which == 0){
-                            stockViewModel.delete(inMethodProduct);
-                        }else{
-                            Intent intent = new Intent(getContext(), AddEditProduct.class);
-                            intent.putExtra(AddEditProduct.EXTRA_ID,inMethodProduct.getId());
-                            intent.putExtra(AddEditProduct.EXTRA_DESCRIPTION,inMethodProduct.getProduct_description());
-                            intent.putExtra(AddEditProduct.EXTRA_PRICE,inMethodProduct.getPrice());
-                            intent.putExtra(AddEditProduct.EXTRA_QUANTITY,inMethodProduct.getProduct_quantity());
-                            intent.putExtra(AddEditProduct.EXTRA_NAME,inMethodProduct.getProduct_name());
-                            intent.putExtra(AddEditProduct.EXTRA_QUANTITY_SOLD,inMethodProduct.getQuantity_sold());
-                            startActivity(intent);
+                        switch (which){
+                            case 0:
+                                stockViewModel.delete(inMethodProduct);
+                                break;
+                            case 1:
+                                Intent intent = new Intent(getContext(), AddEditProduct.class);
+                                intent.putExtra(AddEditProduct.EXTRA_ID,inMethodProduct.getId());
+                                intent.putExtra(AddEditProduct.EXTRA_DESCRIPTION,inMethodProduct.getProduct_description());
+                                intent.putExtra(AddEditProduct.EXTRA_PRICE,inMethodProduct.getPrice());
+                                intent.putExtra(AddEditProduct.EXTRA_QUANTITY,inMethodProduct.getProduct_quantity());
+                                intent.putExtra(AddEditProduct.EXTRA_NAME,inMethodProduct.getProduct_name());
+                                intent.putExtra(AddEditProduct.EXTRA_QUANTITY_SOLD,inMethodProduct.getQuantity_sold());
+                                startActivity(intent);
+                                break;
+                            default:
                         }
                     }
                 });
