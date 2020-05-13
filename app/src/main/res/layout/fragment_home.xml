@@ -8,7 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp">
 
         <TextView
             android:id="@+id/hold_id001"
@@ -355,6 +356,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
                 android:paddingStart="8dp"
                 android:paddingTop="16dp"
                 android:paddingEnd="8dp"
@@ -512,6 +514,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
                 android:paddingStart="8dp"
                 android:paddingTop="16dp"
                 android:paddingEnd="8dp"
@@ -523,13 +526,14 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="@string/weekly_profit"
+                    android:text="@string/profit"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     app:layout_constraintEnd_toStartOf="@id/hold_id010"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/hold_id022"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
@@ -547,9 +551,92 @@
                     android:contentDescription="@string/money"
                     android:src="@drawable/ic_money"
                     android:tint="@color/colorPrimary"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/home_profit_hidden"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <FrameLayout
+                    android:id="@+id/home_profit_hidden"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hold_id022">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout_daily_profit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="8dp"
+                                android:text="@string/daily_profit" />
+
+                            <TextView
+                                android:id="@+id/daily_profit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="R$100,00" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout_weekly_profit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/linearLayout_daily_profit">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="8dp"
+                                android:text="@string/weekly_profit" />
+
+                            <TextView
+                                android:id="@+id/weekly_profit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="R$300,00" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout_monthly_profit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/linearLayout_weekly_profit">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="8dp"
+                                android:text="@string/monthly_profit" />
+
+                            <TextView
+                                android:id="@+id/monthly_profit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="R$700,00" />
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </FrameLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>

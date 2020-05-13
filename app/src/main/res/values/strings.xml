@@ -46,7 +46,7 @@
     <string name="sales_drop">Sales drop</string>
     <string name="minus">Minus</string>
     <string name="items_decline">Items in sales decline</string>
-    <string name="weekly_profit">Weekly profit</string>
+    <string name="weekly_profit">Weekly profit:</string>
     <string name="profit_sales">Profit from this week sales</string>
     <string name="money">money</string>
     <string name="today_sales">Today sales:</string>
@@ -54,4 +54,7 @@
     <string name="month_sales">Month sales:</string>
     <string name="first_in_number">1º</string>
     <string name="second_in_number">2º</string>
+    <string name="profit">Profit</string>
+    <string name="daily_profit">Daily profit:</string>
+    <string name="monthly_profit">Monthly profit:</string>
 </resources>

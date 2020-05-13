@@ -16,6 +16,7 @@ import java.util.List;
 import br.com.renandeldotti.inventoryapp.database.Products;
 import br.com.renandeldotti.inventoryapp.database.ProductsRepository;
 import br.com.renandeldotti.inventoryapp.database.QuantityAndPrice;
+import br.com.renandeldotti.inventoryapp.database.Sold;
 import br.com.renandeldotti.inventoryapp.database.SoldRepository;
 
 public class HomeViewModel extends AndroidViewModel {
@@ -42,11 +43,11 @@ public class HomeViewModel extends AndroidViewModel {
         return allProducts;
     }
 
-    public LiveData<List<Products>> getProductsSorted() {
+    LiveData<List<Products>> getProductsSorted() {
         return productsSorted;
     }
 
-    public LiveData<List<QuantityAndPrice>> getSalesSince(long since) {
+    LiveData<List<QuantityAndPrice>> getSalesSince(long since) {
         long toSearch = new Date().getTime() - since;
         return soldRepository.getSoldSince(toSearch);
     }

@@ -45,7 +45,7 @@
     <string name="sales_drop">Queda de vendas</string>
     <string name="minus">Menos</string>
     <string name="items_decline">Itens com queda de vendas</string>
-    <string name="weekly_profit">Lucro semanal</string>
+    <string name="weekly_profit">Lucro semanal:</string>
     <string name="profit_sales">Lucro dos produtos vendidos na semana</string>
     <string name="money">dinheiro</string>
     <string name="today_sales">Vendas de hoje:</string>
@@ -53,4 +53,7 @@
     <string name="month_sales">Vendas do mês:</string>
     <string name="first_in_number">1º</string>
     <string name="second_in_number">2º</string>
+    <string name="profit">Lucros</string>
+    <string name="daily_profit">Lucro diario:</string>
+    <string name="monthly_profit">Lucro mensal:</string>
 </resources>
