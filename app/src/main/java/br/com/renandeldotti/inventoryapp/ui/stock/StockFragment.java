@@ -25,6 +25,7 @@ import br.com.renandeldotti.inventoryapp.AddEditProduct;
 import br.com.renandeldotti.inventoryapp.ProductsAdapter;
 import br.com.renandeldotti.inventoryapp.R;
 import br.com.renandeldotti.inventoryapp.database.Products;
+import br.com.renandeldotti.inventoryapp.ui.sellproduct.SellProduct;
 
 public class StockFragment extends Fragment {
 
@@ -34,6 +35,7 @@ public class StockFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_stock, container, false);
         setHasOptionsMenu(true);
         setMenuVisibility(false);
+        if (getActivity() != null)
         stockViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(StockViewModel.class);
         final RecyclerView recyclerView = root.findViewById(R.id.stock_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -87,7 +89,18 @@ public class StockFragment extends Fragment {
                                 intent.putExtra(AddEditProduct.EXTRA_QUANTITY_SOLD,inMethodProduct.getQuantity_sold());
                                 startActivity(intent);
                                 break;
+                            case 2:
+                                Intent intent1 = new Intent(getContext(), SellProduct.class);
+                                intent1.putExtra(AddEditProduct.EXTRA_ID,inMethodProduct.getId());
+                                intent1.putExtra(AddEditProduct.EXTRA_DESCRIPTION,inMethodProduct.getProduct_description());
+                                intent1.putExtra(AddEditProduct.EXTRA_PRICE,inMethodProduct.getPrice());
+                                intent1.putExtra(AddEditProduct.EXTRA_QUANTITY,inMethodProduct.getProduct_quantity());
+                                intent1.putExtra(AddEditProduct.EXTRA_NAME,inMethodProduct.getProduct_name());
+                                intent1.putExtra(AddEditProduct.EXTRA_QUANTITY_SOLD,inMethodProduct.getQuantity_sold());
+                                startActivity(intent1);
+                                break;
                             default:
+                                break;
                         }
                     }
                 });

@@ -58,4 +58,6 @@
     <string name="daily_profit">Daily profit:</string>
     <string name="monthly_profit">Monthly profit:</string>
     <string name="sell">Sell</string>
+    <string name="total_price">Total price:</string>
+    <string name="unit_price">Unit price:</string>
 </resources>
