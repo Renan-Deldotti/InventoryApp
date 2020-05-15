@@ -59,4 +59,5 @@
     <string name="sell">Vender</string>
     <string name="total_price">Valor total:</string>
     <string name="unit_price">Preço unitário:</string>
+    <string name="minus_sign">-</string>
 </resources>

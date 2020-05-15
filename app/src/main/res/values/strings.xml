@@ -60,4 +60,6 @@
     <string name="sell">Sell</string>
     <string name="total_price">Total price:</string>
     <string name="unit_price">Unit price:</string>
+    <string name="plus_sign">+</string>
+    <string name="minus_sign">-</string>
 </resources>
