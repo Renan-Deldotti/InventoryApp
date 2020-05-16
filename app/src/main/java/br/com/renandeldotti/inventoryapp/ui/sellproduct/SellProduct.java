@@ -1,39 +1,47 @@
 package br.com.renandeldotti.inventoryapp.ui.sellproduct;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Currency;
+import java.util.Date;
 import java.util.Locale;
 
 import br.com.renandeldotti.inventoryapp.AddEditProduct;
 import br.com.renandeldotti.inventoryapp.R;
+import br.com.renandeldotti.inventoryapp.database.Products;
+import br.com.renandeldotti.inventoryapp.database.Sold;
 
 public class SellProduct extends AppCompatActivity {
 
     private TextView textViewName, textViewDescription, textViewProductPrice, textViewQuantity, textViewTotalPrice, textViewInStock;
-    private Button buttonSend,buttonPlus,buttonMinus;
+    private Button buttonSell,buttonPlus,buttonMinus;
     private float unitPrice = 0f;
     private int quantity = 0,maxQuantity = 0;
     private float totalPrice = 0f;
+
+    private SellProductViewModel viewModel;
+
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sell_product);
 
-        Intent intent = getIntent();
+        intent = getIntent();
         if (!intent.hasExtra(AddEditProduct.EXTRA_ID)){
             return;
         }
+
+        viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(SellProductViewModel.class);
 
         textViewName = findViewById(R.id.sell_product_name);
         textViewDescription = findViewById(R.id.sell_product_description);
@@ -62,13 +70,7 @@ public class SellProduct extends AppCompatActivity {
         buttonMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int intQuantity;
-                try {
-                    intQuantity = Integer.parseInt(textViewQuantity.getText().toString().trim());
-                }catch (Exception e){
-                    intQuantity = -1;
-                }
-
+                int intQuantity = checkForQuantity();
                 if (intQuantity == -1){
                     return;
                 }else if(intQuantity == 0){
@@ -85,12 +87,7 @@ public class SellProduct extends AppCompatActivity {
         buttonPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int intQuantity;
-                try {
-                    intQuantity = Integer.parseInt(textViewQuantity.getText().toString().trim());
-                }catch (Exception e){
-                    intQuantity = -1;
-                }
+                int intQuantity = checkForQuantity();
                 if (intQuantity == -1){
                     return;
                 }else if(intQuantity == maxQuantity){
@@ -104,20 +101,25 @@ public class SellProduct extends AppCompatActivity {
         });
 
 
-        buttonSend = findViewById(R.id.sell_product_buttonSell);
-        buttonSend.setOnClickListener(new View.OnClickListener() {
+        buttonSell = findViewById(R.id.sell_product_buttonSell);
+        buttonSell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int intQuantity;
-                try {
-                    intQuantity = Integer.parseInt(textViewQuantity.getText().toString().trim());
-                }catch (Exception e){
-                    intQuantity = -1;
-                }
+                int intQuantity = checkForQuantity();
                 if (intQuantity <=0){
                     Toast.makeText(SellProduct.this, "Can not sell "+intQuantity+" products", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(SellProduct.this, "Sold for "+textViewTotalPrice.getText().toString().trim(), Toast.LENGTH_SHORT).show();
+                    }else {
+                        Sold sold = new Sold(intent.getStringExtra(AddEditProduct.EXTRA_NAME),unitPrice,intQuantity,new Date().getTime());
+                        Products products = new Products(intent.getStringExtra(AddEditProduct.EXTRA_NAME),intent.getStringExtra(AddEditProduct.EXTRA_DESCRIPTION),maxQuantity-intQuantity,unitPrice);
+                        products.setId(intent.getIntExtra(AddEditProduct.EXTRA_ID,-1));
+                        int newQuantitySold = intent.getIntExtra(AddEditProduct.EXTRA_QUANTITY_SOLD,-1) - intQuantity;
+                        products.setQuantity_sold(newQuantitySold);
+                        if ((products.getId() == -1) || (products.getQuantity_sold() == -1)){
+                            return;
+                        }
+                        viewModel.makeNewSale(products, sold);
+                        Toast.makeText(SellProduct.this, "Sold for "+textViewTotalPrice.getText().toString().trim(), Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
         });
@@ -137,5 +139,15 @@ public class SellProduct extends AppCompatActivity {
         totalPrice = unitPrice * intQuantity;
         String totalPriceSet = Currency.getInstance(Locale.getDefault()).getSymbol() + String.format(Locale.getDefault(),"%.2f",totalPrice);
         textViewTotalPrice.setText(totalPriceSet);
+    }
+
+    private int checkForQuantity(){
+        int intQuantity;
+        try {
+            intQuantity = Integer.parseInt(textViewQuantity.getText().toString().trim());
+        }catch (Exception e){
+            intQuantity = -1;
+        }
+        return intQuantity;
     }
 }
