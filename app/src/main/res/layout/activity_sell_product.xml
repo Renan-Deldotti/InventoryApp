@@ -34,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
         android:text="@string/unit_price"
+        app:layout_constraintBottom_toBottomOf="@+id/sell_product_price"
         app:layout_constraintEnd_toStartOf="@id/sell_product_price"
         app:layout_constraintTop_toTopOf="@id/sell_product_price" />
 
@@ -48,6 +49,25 @@
         app:layout_constraintTop_toBottomOf="@id/sell_product_description"
         app:layout_constraintVertical_bias="0.0"
         tools:text="R$ 100,00" />
+
+    <TextView
+        android:id="@+id/hold_id026"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/in_stock"
+        app:layout_constraintEnd_toStartOf="@id/sell_product_inStock"
+        app:layout_constraintTop_toBottomOf="@id/sell_product_price" />
+
+    <TextView
+        android:id="@+id/sell_product_inStock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sell_product_price"
+        tools:text="99" />
 
     <LinearLayout
         android:id="@+id/sell_quantity_linear"
