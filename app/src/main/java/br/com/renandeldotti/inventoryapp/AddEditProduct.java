@@ -30,6 +30,7 @@ import java.util.Locale;
 import br.com.renandeldotti.inventoryapp.database.Products;
 import br.com.renandeldotti.inventoryapp.database.ProductsViewModel;
 import br.com.renandeldotti.inventoryapp.database.Sold;
+import br.com.renandeldotti.inventoryapp.databinding.ActivityAddEditProductBinding;
 
 public class AddEditProduct extends AppCompatActivity {
 
@@ -40,6 +41,8 @@ public class AddEditProduct extends AppCompatActivity {
     public static final String EXTRA_DESCRIPTION = "br.com.renandeldotti.inventoryapp.EXTRA_DESCRIPTION";
     public static final String EXTRA_QUANTITY_SOLD = "br.com.renandeldotti.inventoryapp.EXTRA_QUANTITY_SOLD";
 
+    private ActivityAddEditProductBinding binding;
+
     private static final String TAG = AddEditProduct.class.getSimpleName();
 
     private Intent intentCall;
@@ -48,13 +51,15 @@ public class AddEditProduct extends AppCompatActivity {
     private int thisProductId = defaultIdVal;
     private boolean hasId = false;
 
-    private TextInputEditText productName;
-    private EditText productQuantity, productPrice, productDescription;
+    //private TextInputEditText productName;
+    //private EditText productQuantity, productPrice, productDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_edit_product);
+        binding = ActivityAddEditProductBinding.inflate(getLayoutInflater());
+        //setContentView(R.layout.activity_add_edit_product);
+        setContentView(binding.getRoot());
 
         productsViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(ProductsViewModel.class);
 
@@ -64,26 +69,31 @@ public class AddEditProduct extends AppCompatActivity {
             thisProductId = intentCall.getIntExtra(EXTRA_ID,defaultIdVal);
         }
 
-        productName = findViewById(R.id.add_product_name);
+        /*productName = findViewById(R.id.add_product_name);
         productQuantity = findViewById(R.id.add_product_quantity);
         productPrice = findViewById(R.id.add_product_price);
         productDescription = findViewById(R.id.add_product_description);
-        Button clearFields = findViewById(R.id.btn_clearFields);
+        Button clearFields = findViewById(R.id.btn_clearFields);*/
 
-        clearFields.setOnClickListener(new View.OnClickListener() {
+        binding.btnClearFields.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                productName.setText("");
+                /*productName.setText("");
                 productQuantity.setText("");
                 productPrice.setText("");
-                productDescription.setText("");
+                productDescription.setText("");*/
+                binding.addProductName.setText("");
+                binding.addProductQuantity.setText("");
+                binding.addProductPrice.setText("");
+                binding.addProductDescription.setText("");
             }
         });
 
         if (hasId){
             setTitle(getResources().getString(R.string.edit_product));
-            TextView editTitleTV = findViewById(R.id.edit_add_title_textView);
-            editTitleTV.setText(getResources().getString(R.string.edit_product));
+            //TextView editTitleTV = findViewById(R.id.edit_add_title_textView);
+            //editTitleTV.setText(getResources().getString(R.string.edit_product));
+            binding.editAddTitleTextView.setText(R.string.edit_product);
             populateFields();
         }else{
             setTitle(getResources().getString(R.string.add_product));
@@ -92,14 +102,18 @@ public class AddEditProduct extends AppCompatActivity {
 
     private void populateFields() {
         String nameToSet = intentCall.getStringExtra(EXTRA_NAME);
-        productName.setText(nameToSet);
+        //productName.setText(nameToSet);
+        binding.addProductName.setText(nameToSet);
         String quantityToSet = String.valueOf(intentCall.getIntExtra(EXTRA_QUANTITY,0));
-        productQuantity.setText(quantityToSet);
+        //productQuantity.setText(quantityToSet);
+        binding.addProductQuantity.setText(quantityToSet);
         Float priceFloat = intentCall.getFloatExtra(EXTRA_PRICE,0);
         String productPriceToSet = String.format(Locale.getDefault(),"%.2f",priceFloat);
-        productPrice.setText(productPriceToSet);
+        //productPrice.setText(productPriceToSet);
+        binding.addProductPrice.setText(productPriceToSet);
         String productDescriptionToSet = intentCall.getStringExtra(EXTRA_DESCRIPTION);
-        productDescription.setText(productDescriptionToSet);
+        //productDescription.setText(productDescriptionToSet);
+        binding.addProductDescription.setText(productDescriptionToSet);
     }
 
     @Override
@@ -164,23 +178,28 @@ public class AddEditProduct extends AppCompatActivity {
     }
 
     private void prepareToSave() {
-        String addName = ""+productName.getText().toString().trim();
+        //String addName = ""+productName.getText().toString().trim();
+        String addName = ""+binding.addProductName.getText().toString().trim();
         if (TextUtils.isEmpty(addName) || addName.length() <= 3){
             Toast.makeText(this, getResources().getString(R.string.invalid_name), Toast.LENGTH_SHORT).show();
-            productName.setError(getResources().getString(R.string.invalid_name));
+            //productName.setError(getResources().getString(R.string.invalid_name));
+            binding.addProductName.setError(getResources().getString(R.string.invalid_name));
             return;
         }
         int addQuantity;
         try {
-             addQuantity = Integer.parseInt(productQuantity.getText().toString().trim());
+             //addQuantity = Integer.parseInt(productQuantity.getText().toString().trim());
+             addQuantity = Integer.parseInt(binding.addProductQuantity.getText().toString().trim());
         } catch (NumberFormatException e) {
             Toast.makeText(this,getResources().getString(R.string.invalid_quantity), Toast.LENGTH_SHORT).show();
-            productQuantity.setError(getResources().getString(R.string.invalid_quantity));
+            //productQuantity.setError(getResources().getString(R.string.invalid_quantity));
+            binding.addProductQuantity.setError(getResources().getString(R.string.invalid_quantity));
             return;
         }
         float addPrice;
         try {
-            String s1 = productPrice.getText().toString().trim();
+            //String s1 = productPrice.getText().toString().trim();
+            String s1 = binding.addProductPrice.getText().toString().trim();
             s1 = s1.replace(',','.');
             addPrice = Float.parseFloat(s1.trim());
             //Log.e(AddEditProduct.class.getSimpleName(),"val in Float:\t"+addPrice);
@@ -189,11 +208,13 @@ public class AddEditProduct extends AppCompatActivity {
             }
         } catch (NumberFormatException e) {
             Toast.makeText(this,getResources().getString(R.string.invalid_price), Toast.LENGTH_SHORT).show();
-            productPrice.setError(getResources().getString(R.string.invalid_price));
+            //productPrice.setError(getResources().getString(R.string.invalid_price));
+            binding.addProductPrice.setError(getResources().getString(R.string.invalid_price));
             return;
         }
 
-        String addDescription = productDescription.getText().toString().trim();
+        //String addDescription = productDescription.getText().toString().trim();
+        String addDescription = binding.addProductDescription.getText().toString().trim();
 
         boolean wasInserted = false;
         try {
