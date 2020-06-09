@@ -8,7 +8,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,26 +15,33 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import br.com.renandeldotti.inventoryapp.R;
 import br.com.renandeldotti.inventoryapp.database.Sold;
+import br.com.renandeldotti.inventoryapp.databinding.FragmentSalesBinding;
 
 public class SalesFragment extends Fragment {
 
     private SalesViewModel salesViewModel;
+    private FragmentSalesBinding salesBinding;
+    private static final String TAG = SalesFragment.class.getSimpleName();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        View root = inflater.inflate(R.layout.fragment_sales, container, false);
-        salesViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(SalesViewModel.class);
-        RecyclerView salesRecyclerView = root.findViewById(R.id.sales_recyclerView);
-        salesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        salesRecyclerView.setHasFixedSize(true);
+        salesBinding = FragmentSalesBinding.inflate(inflater,container,false);
+        View root = salesBinding.getRoot();
+
+        /*if (getActivity() != null)
+        salesViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(SalesViewModel.class);*/
+
+        salesViewModel = new ViewModelProvider(this).get(SalesViewModel.class);
+
         final SalesAdapter adapter = new SalesAdapter(getContext());
-        salesRecyclerView.setAdapter(adapter);
+        salesBinding.salesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        salesBinding.salesRecyclerView.setHasFixedSize(true);
+        salesBinding.salesRecyclerView.setAdapter(adapter);
         try {
             if (salesViewModel.getAllSales() != null) {
                 salesViewModel.getAllSales().observe(getViewLifecycleOwner(), new Observer<List<Sold>>() {
@@ -45,10 +51,9 @@ public class SalesFragment extends Fragment {
                     }
                 });
             }
-            ProgressBar progressBar = root.findViewById(R.id.sales_progressbar);
-            progressBar.setVisibility(View.GONE);
+            salesBinding.salesProgressbar.setVisibility(View.GONE);
         } catch (Exception e) {
-            Log.e(SalesFragment.class.getSimpleName(), "Error" + e);
+            Log.e(TAG,"Error" + e);
         }
 
         return root;

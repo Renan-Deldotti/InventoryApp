@@ -10,14 +10,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -25,23 +23,29 @@ import br.com.renandeldotti.inventoryapp.AddEditProduct;
 import br.com.renandeldotti.inventoryapp.ProductsAdapter;
 import br.com.renandeldotti.inventoryapp.R;
 import br.com.renandeldotti.inventoryapp.database.Products;
+import br.com.renandeldotti.inventoryapp.databinding.FragmentStockBinding;
 import br.com.renandeldotti.inventoryapp.ui.sellproduct.SellProduct;
 
 public class StockFragment extends Fragment {
 
     private StockViewModel stockViewModel;
+    private FragmentStockBinding stockBinding;
+    private static final String TAG = StockFragment.class.getSimpleName();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_stock, container, false);
+        stockBinding = FragmentStockBinding.inflate(inflater, container, false);
+        View root = stockBinding.getRoot();
+
         setHasOptionsMenu(true);
         setMenuVisibility(false);
+
         if (getActivity() != null)
-        stockViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(StockViewModel.class);
-        final RecyclerView recyclerView = root.findViewById(R.id.stock_rv);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setHasFixedSize(true);
+            stockViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(StockViewModel.class);
+
         final ProductsAdapter adapter = new ProductsAdapter(getContext());
-        recyclerView.setAdapter(adapter);
+        stockBinding.stockRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        stockBinding.stockRv.setHasFixedSize(true);
+        stockBinding.stockRv.setAdapter(adapter);
         try {
             stockViewModel.getProducts().observe(getViewLifecycleOwner(), new Observer<List<Products>>() {
                 @Override
@@ -49,21 +53,20 @@ public class StockFragment extends Fragment {
                     adapter.submitList(products);
                 }
             });
-            ProgressBar progressBar = root.findViewById(R.id.stock_progressbar);
-            progressBar.setVisibility(View.GONE);
+            stockBinding.stockProgressbar.setVisibility(View.GONE);
         } catch (Exception e) {
-            Log.e(StockFragment.class.getSimpleName(),"Error: "+e);
+            Log.e(TAG, "Error: " + e);
         }
         adapter.productsSetOnItemClickListener(new ProductsAdapter.productsOnItemClickListener() {
             @Override
             public void onItemClick(Products products) {
                 Intent intent = new Intent(getContext(), AddEditProduct.class);
-                intent.putExtra(AddEditProduct.EXTRA_ID,products.getId());
-                intent.putExtra(AddEditProduct.EXTRA_DESCRIPTION,products.getProduct_description());
-                intent.putExtra(AddEditProduct.EXTRA_PRICE,products.getPrice());
-                intent.putExtra(AddEditProduct.EXTRA_QUANTITY,products.getProduct_quantity());
-                intent.putExtra(AddEditProduct.EXTRA_NAME,products.getProduct_name());
-                intent.putExtra(AddEditProduct.EXTRA_QUANTITY_SOLD,products.getQuantity_sold());
+                intent.putExtra(AddEditProduct.EXTRA_ID, products.getId());
+                intent.putExtra(AddEditProduct.EXTRA_DESCRIPTION, products.getProduct_description());
+                intent.putExtra(AddEditProduct.EXTRA_PRICE, products.getPrice());
+                intent.putExtra(AddEditProduct.EXTRA_QUANTITY, products.getProduct_quantity());
+                intent.putExtra(AddEditProduct.EXTRA_NAME, products.getProduct_name());
+                intent.putExtra(AddEditProduct.EXTRA_QUANTITY_SOLD, products.getQuantity_sold());
                 startActivity(intent);
             }
         });
@@ -75,28 +78,28 @@ public class StockFragment extends Fragment {
                 builder.setItems(getResources().getStringArray(R.array.edit_or_delete), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
+                        switch (which) {
                             case 0:
                                 stockViewModel.delete(inMethodProduct);
                                 break;
                             case 1:
                                 Intent intent = new Intent(getContext(), AddEditProduct.class);
-                                intent.putExtra(AddEditProduct.EXTRA_ID,inMethodProduct.getId());
-                                intent.putExtra(AddEditProduct.EXTRA_DESCRIPTION,inMethodProduct.getProduct_description());
-                                intent.putExtra(AddEditProduct.EXTRA_PRICE,inMethodProduct.getPrice());
-                                intent.putExtra(AddEditProduct.EXTRA_QUANTITY,inMethodProduct.getProduct_quantity());
-                                intent.putExtra(AddEditProduct.EXTRA_NAME,inMethodProduct.getProduct_name());
-                                intent.putExtra(AddEditProduct.EXTRA_QUANTITY_SOLD,inMethodProduct.getQuantity_sold());
+                                intent.putExtra(AddEditProduct.EXTRA_ID, inMethodProduct.getId());
+                                intent.putExtra(AddEditProduct.EXTRA_DESCRIPTION, inMethodProduct.getProduct_description());
+                                intent.putExtra(AddEditProduct.EXTRA_PRICE, inMethodProduct.getPrice());
+                                intent.putExtra(AddEditProduct.EXTRA_QUANTITY, inMethodProduct.getProduct_quantity());
+                                intent.putExtra(AddEditProduct.EXTRA_NAME, inMethodProduct.getProduct_name());
+                                intent.putExtra(AddEditProduct.EXTRA_QUANTITY_SOLD, inMethodProduct.getQuantity_sold());
                                 startActivity(intent);
                                 break;
                             case 2:
                                 Intent intent1 = new Intent(getContext(), SellProduct.class);
-                                intent1.putExtra(AddEditProduct.EXTRA_ID,inMethodProduct.getId());
-                                intent1.putExtra(AddEditProduct.EXTRA_DESCRIPTION,inMethodProduct.getProduct_description());
-                                intent1.putExtra(AddEditProduct.EXTRA_PRICE,inMethodProduct.getPrice());
-                                intent1.putExtra(AddEditProduct.EXTRA_QUANTITY,inMethodProduct.getProduct_quantity());
-                                intent1.putExtra(AddEditProduct.EXTRA_NAME,inMethodProduct.getProduct_name());
-                                intent1.putExtra(AddEditProduct.EXTRA_QUANTITY_SOLD,inMethodProduct.getQuantity_sold());
+                                intent1.putExtra(AddEditProduct.EXTRA_ID, inMethodProduct.getId());
+                                intent1.putExtra(AddEditProduct.EXTRA_DESCRIPTION, inMethodProduct.getProduct_description());
+                                intent1.putExtra(AddEditProduct.EXTRA_PRICE, inMethodProduct.getPrice());
+                                intent1.putExtra(AddEditProduct.EXTRA_QUANTITY, inMethodProduct.getProduct_quantity());
+                                intent1.putExtra(AddEditProduct.EXTRA_NAME, inMethodProduct.getProduct_name());
+                                intent1.putExtra(AddEditProduct.EXTRA_QUANTITY_SOLD, inMethodProduct.getQuantity_sold());
                                 startActivity(intent1);
                                 break;
                             default:
@@ -107,18 +110,6 @@ public class StockFragment extends Fragment {
                 builder.show();
             }
         });
-        /*Thread thread = new Thread(){
-            @Override
-            public void run() {
-                try {
-                    sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                setMenuVisibility(true);
-            }
-        };
-        thread.start();*/
         return root;
 
     }
@@ -130,7 +121,7 @@ public class StockFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.long_press_option_menu,menu);
+        inflater.inflate(R.menu.long_press_option_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 }

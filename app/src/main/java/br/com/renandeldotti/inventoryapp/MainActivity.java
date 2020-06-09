@@ -20,14 +20,19 @@ import androidx.navigation.ui.NavigationUI;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import br.com.renandeldotti.inventoryapp.databinding.ActivityMainBinding;
+
 public class MainActivity extends AppCompatActivity {
 
     private String TAG = MainActivity.class.getSimpleName();
+    private ActivityMainBinding mainBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(mainBinding.getRoot());
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -38,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        FloatingActionButton fab = findViewById(R.id.add_product);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mainBinding.addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,AddEditProduct.class);
@@ -47,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Todo: Continuar a edição do botão de exlucsão
+        // Todo: Continuar a edição do botão de exclusão
 
         /* Atualiza a lista ao tempo determinado pelo usuario
         Timer timer = new Timer();
