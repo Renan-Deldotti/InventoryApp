@@ -18,29 +18,27 @@ import java.util.Locale;
 import br.com.renandeldotti.inventoryapp.R;
 import br.com.renandeldotti.inventoryapp.database.Products;
 import br.com.renandeldotti.inventoryapp.database.QuantityAndPrice;
+import br.com.renandeldotti.inventoryapp.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 
     //private static final String LOG_TAG = HomeFragment.class.getSimpleName();
 
     private HomeViewModel homeViewModel;
+    private FragmentHomeBinding homeBinding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View root = inflater.inflate(R.layout.fragment_home, container, false);
+        homeBinding = FragmentHomeBinding.inflate(inflater,container,false);
+        final View root = homeBinding.getRoot();
         if(getActivity() != null)
         homeViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(HomeViewModel.class);
 
-        root.findViewById(R.id.ritmo_vendas).setOnClickListener(new View.OnClickListener() {
+        homeBinding.ritmoVendas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View tvRitmoVendas = root.findViewById(R.id.home_rateSales_hidden);
 
-                final TextView todaySales = root.findViewById(R.id.home_todaySales_value);
-                final TextView weekSales = root.findViewById(R.id.home_weekSales_value);
-                final TextView monthSales = root.findViewById(R.id.home_monthSales_value);
-
-                if (tvRitmoVendas.getVisibility() == View.VISIBLE) {
-                    tvRitmoVendas.setVisibility(View.GONE);
+                if (homeBinding.homeRateSalesHidden.getVisibility() == View.VISIBLE) {
+                    homeBinding.homeRateSalesHidden.setVisibility(View.GONE);
                 } else {
                     if (homeViewModel.getSalesSince(HomeViewModel.ONE_DAY) != null) {
                         homeViewModel.getSalesSince(HomeViewModel.ONE_DAY).observe(getViewLifecycleOwner(), new Observer<List<QuantityAndPrice>>() {
@@ -50,7 +48,7 @@ public class HomeFragment extends Fragment {
                                 for (QuantityAndPrice qp : quantityAndPrices) {
                                     soldQuantity += qp.getQuantity_sold();
                                 }
-                                todaySales.setText(String.valueOf(soldQuantity));
+                                homeBinding.homeTodaySalesValue.setText(String.valueOf(soldQuantity));
                             }
                         });
                     }
@@ -62,7 +60,7 @@ public class HomeFragment extends Fragment {
                                 for (QuantityAndPrice qp : quantityAndPrices) {
                                     soldQuantity += qp.getQuantity_sold();
                                 }
-                                weekSales.setText(String.valueOf(soldQuantity));
+                                homeBinding.homeWeekSalesValue.setText(String.valueOf(soldQuantity));
                             }
                         });
                     }
@@ -74,11 +72,11 @@ public class HomeFragment extends Fragment {
                                 for (QuantityAndPrice qp : quantityAndPrices) {
                                     soldQuantity += qp.getQuantity_sold();
                                 }
-                                monthSales.setText(String.valueOf(soldQuantity));
+                                homeBinding.homeMonthSalesValue.setText(String.valueOf(soldQuantity));
                             }
                         });
                     }
-                    tvRitmoVendas.setVisibility(View.VISIBLE);
+                    homeBinding.homeRateSalesHidden.setVisibility(View.VISIBLE);
                 }
             }
         });
